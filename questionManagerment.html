@@ -25,13 +25,13 @@
 			<span class="text">Admin</span>
 		</a>
 		<ul class="side-menu top">
-			<li class="active">
-				<a href="#">
+			<li class="">
+				<a href="adminHome.html">
 					<i class='bx bxs-dashboard'></i>
 					<span class="text">User managerment</span>
 				</a>
 			</li>
-			<li class="">
+			<li class="active">
 				<a href="questionManagerment.html">
 					<i class='bx bxs-dashboard'></i>
 					<span class="text">Question managerment</span>
@@ -126,19 +126,17 @@
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>User</h3>
+						<h3>Questions</h3>
 					</div>
 					<table>
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Birth of date</th>
-								<th>Gender</th>
-								<th>Phone number</th>
-								<th>Email</th>
-								<th>Username</th>
-								<th>Password</th>
-								<th>Status</th>
+                                <th>question</th>
+								<th>Answer</th>
+                                <!-- <th>mathching answer</th>
+                                <th>mathching questions</th> -->
+                                <th>Answer choose</th>
+                                <th>type of question</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -148,11 +146,10 @@
 						</tbody>
 					</table>
 
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add
-						user</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add question</button>
 
 				</div>
-			</div>
+            </div>
 		</main>
 		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -286,7 +283,7 @@
 	<!-- CONTENT -->
 
 
-	<script src="js/script.js" type="module"></script>
+	<script src="js/qs.js" type="module"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
