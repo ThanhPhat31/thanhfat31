@@ -80,7 +80,8 @@ $(document).ready(function () {
     const usersRef = ref(db, 'Users/');
     onValue(usersRef, (snapshot) => {
         const Users = snapshot.val();
-        //console.log(snapshot.val());
+        //console.log(snapshot.val())
+        tableBody.innerHTML = "";;
         for (let user in Users) {
             // console.log(snapshot.key);
             let tr =
