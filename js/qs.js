@@ -44,30 +44,279 @@ $(document).ready(function () {
 
     const db = getDatabase();
     const questionRef = ref(db, 'questions/bai1');
-    onValue(questionRef, (snapshot) => {
+
+    const questionRef2 = ref(db, 'questions');
+    let nameSelected;
+    let session;
+    console.log(questionRef2);
+    // Lấy danh sách các document trong collection 'questions'
+    onValue(questionRef2, function (snapshot) {
         const questions = snapshot.val();
-        //console.log(snapshot.val());
-        for (let qs in questions) {
-            console.log(questions[qs].answermatching);
-            let tr =
-                `<tr data-id="${qs}">
-                    <td>
-                        <p>${questions[qs].question}</p>
-                    </td>
-                    <td>${questions[qs].answer}</td>
-                    
-                    <td>${questions[qs].answerchose}</td>
-                    <td>${questions[qs].typequestion}</td>
-                    
-                    <td>
-                        <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
-                        <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
-                    </td>
-                </tr>`
-            tableBody.innerHTML += tr;
-        }
+        console.log(questions);
+        // Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
+        let selectBox = document.getElementById('question-list');
+        selectBox.innerHTML = '<option value="">-- Select a question --</option>';
+        selectBox.addEventListener('change', displayQuestion);
+
+        const keys = Object.keys(questions);
+        keys.forEach(key => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.text = key;
+            selectBox.appendChild(option);
+        });
 
     });
+
+    // Lấy danh sách các document trong collection 'questions'
+    onValue(questionRef2, function (snapshot) {
+        const questions = snapshot.val();
+        console.log(questions);
+        // Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
+        let selectBox = document.getElementById('question-list-1');
+        selectBox.innerHTML = '<option value="">-- Select a question --</option>';
+        selectBox.addEventListener('change', displayQuestion1);
+
+        const keys = Object.keys(questions);
+        keys.forEach(key => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.text = key;
+            selectBox.appendChild(option);
+        });
+
+    });
+
+    // Lấy danh sách các document trong collection 'questions'
+    onValue(questionRef2, function (snapshot) {
+        const questions = snapshot.val();
+        console.log(questions);
+        // Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
+        let selectBox = document.getElementById('question-list-2');
+        selectBox.innerHTML = '<option value="">-- Select a question --</option>';
+        selectBox.addEventListener('change', displayQuestion1);
+
+        const keys = Object.keys(questions);
+        keys.forEach(key => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.text = key;
+            selectBox.appendChild(option);
+        });
+
+    });
+
+
+
+
+    console.log(questionRef);
+    // onValue(questionRef, (snapshot) => {
+    //     const questions = snapshot.val();
+    //     //console.log(snapshot.val());
+    //     for (let qs in questions) {
+    //         console.log(questions[qs].answermatching);
+    //         if (questions[qs].typequestion == 1) {
+    //             let tr =
+    //                 `<tr data-id="${qs}">
+    //                 <td>
+    //                     <p>${questions[qs].question}</p>
+    //                 </td>
+    //                 <td>${questions[qs].answer}</td>
+
+    //                 <td>${questions[qs].answerchose}</td>
+    //                 <td>${questions[qs].typequestion}</td>
+
+    //                 <td>
+    //                     <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
+    //                     <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
+    //                 </td>
+    //             </tr>`
+    //             tableBody.innerHTML += tr;
+    //         }
+
+    //         else if (questions[qs].typequestion == 2) {
+    //             let rr =
+    //                 `<table>`
+    //             for (let index in questions[qs].answerchose) {
+    //                 //console.log(questions[qs].answerchose)
+    //                 rr += `<tr><td>${questions[qs].answerchose[index]}</td></tr>`
+
+    //             }
+    //             rr +=
+    //                 `</table>`
+    //             let tr =
+    //                 `<tr data-id="${qs}">
+    //                 <td>
+    //                     <p>${questions[qs].question}</p>
+    //                 </td>
+    //                 <td>${questions[qs].answer}</td>
+
+    //                 <td>${rr}</td>
+    //                 <td>${questions[qs].typequestion}</td>
+
+    //                 <td>
+    //                     <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
+    //                     <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
+    //                 </td>
+    //             </tr>`
+    //             tableBody.innerHTML += tr;
+    //         }
+    //         else {
+    //             let rr = `<table>`
+    //             for (const [key, value] of Object.entries(questions[qs].answermatching)) {
+    //                 rr += `<tr><td>${key}: ${value}</td></tr>`;
+    //             }
+    //             rr += `</table>`
+    //             let rt = `<table>`
+    //             //for (let index in questions[qs].questionmatching) {
+    //             //console.log(questions[qs].questionmatching)
+
+    //             for (const [key, value] of Object.entries(questions[qs].questionmatching)) {
+    //                 rt += `<tr><td>${key}: ${value}</td></tr>`;
+    //             }
+
+    //             //}
+    //             rt += `</table>`
+
+    //             let tr =
+    //                 `<tr data-id="${qs}">
+    //                 <td>
+    //                     <p>${questions[qs].question}</p>
+    //                 </td>
+    //                 <td>${rr}</td>
+
+    //                 <td>${rt}</td>
+    //                 <td>${questions[qs].typequestion}</td>
+
+    //                 <td>
+    //                     <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
+    //                     <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
+    //                 </td>
+    //             </tr>`
+    //             tableBody.innerHTML += tr;
+    //         }
+    //     }
+
+    // });
+    function displayQuestion1() {
+        nameSelected = this.value;
+    }
+    function displayQuestion() {
+        // Get the selected question ID
+        let questionId = this.value;
+        const db = getDatabase();
+        nameSelected = this.value;
+        // Get the question data from the database
+        let questionRef = ref(db, 'questions/' + questionId);
+
+        get(questionRef).then((snapshot) => {
+            let questionData = snapshot.val();
+            console.log(questionData);
+
+            const keys = Object.keys(questionData);
+            let questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = '';
+
+            // Create the table element
+            let table = document.createElement('table');
+            let thead = document.createElement('thead');
+            let tbody = document.createElement('tbody');
+            table.appendChild(thead);
+            table.appendChild(tbody);
+
+            // Create the table header row
+            let headerRow = document.createElement('tr');
+            let questionHeader = document.createElement('th');
+            questionHeader.innerText = 'Question';
+            let answerHeader = document.createElement('th');
+            answerHeader.innerText = 'Answer';
+            let answerChooseHeader = document.createElement('th');
+            answerChooseHeader.innerText = 'Answer Choose';
+            let typeHeader = document.createElement('th');
+            typeHeader.innerText = 'Type of Question';
+            let actionHeader = document.createElement('th');
+            actionHeader.innerText = 'Action';
+            headerRow.appendChild(questionHeader);
+            headerRow.appendChild(answerHeader);
+            headerRow.appendChild(answerChooseHeader);
+            headerRow.appendChild(typeHeader);
+            headerRow.appendChild(actionHeader);
+            thead.appendChild(headerRow);
+
+            keys.forEach(key => {
+                console.log(key);
+                // Create the table row
+                let row = document.createElement('tr');
+                // Add the question
+                let questionCell = document.createElement('td');
+                questionCell.innerText = questionData[key].question;
+                row.appendChild(questionCell);
+
+                // Add the answer
+                let answerCell = document.createElement('td');
+                answerCell.innerText = questionData[key].answer;
+                row.appendChild(answerCell);
+
+                // Add the answer choices (if applicable)
+                let answerChooseCell = document.createElement('td');
+                if (questionData[key].answerchose) {
+                    answerChooseCell.innerText = questionData[key].answerchose.join(', ');
+                }
+                row.appendChild(answerChooseCell);
+
+                // Add the type of question
+                let typeCell = document.createElement('td');
+                typeCell.innerText = questionData[key].typequestion;
+                row.appendChild(typeCell);
+
+                // Add the action button
+                let actionCell = document.createElement('td');
+                let deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.addEventListener('click', () => {
+                    // Delete the question from the database
+                    session = Object.keys(questionData)[Array.from(tbody.children).indexOf(row)];
+                    let questionRef = ref(db, 'questions/' + nameSelected + "/" +session );
+                    remove(questionRef);
+                    // Remove the row from the table
+                    row.remove();
+                    window.location.reload();
+                });
+                actionCell.appendChild(deleteButton);
+                row.appendChild(actionCell);
+
+                // Add the action buttons
+                let editButton = document.createElement('button');
+                editButton.innerText = 'Edit';
+                editButton.addEventListener('click', () => {
+                    // Handle the edit button click event
+                    // ...
+                    let rowData = row.cells;
+                    // Populate the modal with the row data
+                    let questionInput = document.getElementById('question-1');
+                    questionInput.value = rowData[0].innerText;
+                    let answerInput = document.getElementById('answer-2');
+                    answerInput.value = rowData[1].innerText;
+                    let answerChoicesInput = document.getElementById('answer-choices-3');
+                    answerChoicesInput.value = rowData[2].innerText;
+                    let typeInput = document.getElementById('type-4');
+                    typeInput.value = rowData[3].innerText;
+                    
+                     session = Object.keys(questionData)[Array.from(tbody.children).indexOf(row)];
+                console.log(key);
+                    $('#editModal6').modal('show');
+                });
+                actionCell.appendChild(editButton);
+
+                // Add the row to the table body
+                tbody.appendChild(row);
+            });
+
+            // Add the table to the question container
+            questionContainer.appendChild(table);
+        });
+    }
+
     // get(child(dbRef, `Users/`)).then((snapshot) => {
 
     //     const Users = snapshot.val();
@@ -96,91 +345,83 @@ $(document).ready(function () {
     //     console.log(error);
     // });
     $("#addModal .submit").on("click", () => {
-        var name = $("#addModal .show_name").val();
-        var date = $("#addModal .show_date").val();
-        var gender = $("#addModal .show_gender").val();
-        var phoneNo = $("#addModal .show_phone").val();
-        var email = $("#addModal .show_email").val();
-        var userName = $("#addModal .show_userName").val();
-        var password = $("#addModal .show_pass").val();
-        var status = $("#addModal .show_status").val();
-        let nameregex = /^[a-zA-Z\s]+$/;
-        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
-        let usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
-        let passregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
-        let dateregex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-        let phoneregex = /^0\d{9,10}$/;
+        alert("đã vô");
+        let question = document.getElementById('question').value;
+        let answer = document.getElementById('answer').value;
+        let answerChoices = document.getElementById('answer-choices').value.split(',');
+        let type = document.getElementById('type').value;
+        let questionId = this.value;
+        console.log(questionId);
 
-        if (name.length == 0 || date.length == 0 || gender.length == 0 || phoneNo.length == 0 || email.length == 0 || userName.length == 0 || password.length == 0 || status.length == 0) {
-            alert("You can not leave any fields emty!"); return;
-        }
-        else if (!nameregex.test(name)) {
-            alert("The name should only contain alphabet");
-            return false;
-        }
-        else if (!dateregex.test(changedateformat(date))) {
-            alert("Dates must be in the format dd/mm/yyyy");
-            return false;
-        }
-        else if (!phoneregex.test(phoneNo)) {
-            alert("Invalid phone number Exam: 0976340***");
-            return false;
-        }
-        else if (!emailregex.test(email)) {
-            alert("Invalid email format Exam:A@gmail.com");
-            return false;
-        }
-        else if (!usernameregex.test(userName)) {
-            alert("Username is 8-20 characters long Example: vanAnh123");
-            return false;
-        }
-        else if (!passregex.test(password)) {
-            alert("Invalid password,one character,one uppercasse Example: LuanptA123");
-        }
-        else {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    // ... user.uid
-                    set(ref(database, 'Users/' + user.uid), {
-                        "fullName": name,
-                        "date": changedateformat(date),
-                        "gender": gender,
-                        "phoneNo": phoneNo,
-                        "email": email,
-                        "userName": userName,
-                        "passWord": password,
-                        "otp": status
-                    })
-                        .then(() => {
-                            // Data saved successfully!
-                            alert('user add successfully');
 
-                        })
-                        .catch((error) => {
-                            // The write failed...
-                            alert("error: " + error);
-                        });
-                })
+        let questionRef = ref(db, 'questions/' + nameSelected);
+        get(questionRef).then((snapshot) => {
+            let questionData2 = snapshot.val();
+
+            // // Add the new question to the database
+            let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + "question" + (Object.keys(questionData2).length + 1));
+            console.log(newQuestionRef)
+            set(newQuestionRef, {
+                question: question,
+                answer: answer,
+                answerchose: answerChoices,
+                typequestion: type
+            }).then(() => {
+                alert('successfully create!');
+                $('#addModal').modal('hide');
+            })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
-                    alert("erro" + errorCode + errorMessage);
+                    alert('Error create: ', error);
                 });
-            location.reload();
-            var name = $("#addModal .show_name").val("");
-            var date = $("#addModal .show_date").val("");
-            var gender = $("#addModal .show_gender").val("");
-            var phoneNo = $("#addModal .show_phone").val("");
-            var email = $("#addModal .show_email").val("");
-            var userName = $("#addModal .show_userName").val("");
-            var password = $("#addModal .show_pass").val("");
-            var status = $("#addModal .show_status").val("");
-            $("[data-dismiss=modal]").trigger({type : "click"});
-        }
+            ;
+
+            console.log({
+                question: question,
+                answer: answer,
+                answerchose: answerChoices,
+                typequestion: type
+            })
+        });
+
+        window.location.reload();
+
+
     })
+
+    $("#addModal1 .submit").on("click", () => {
+        alert("đã vô");
+
+        let question = document.getElementById('question').value;
+        let answer = document.getElementById('answer').value;
+        let answerChoices = document.getElementById('answer-choices').value.split(',');
+        let type = document.getElementById('type').value;
+        let questionId = this.value;
+        console.log(nameSelected);
+        // Add the new question to the database
+        let newQuestionRef = push(ref(db, 'questions/' + nameSelected));
+        set(newQuestionRef, {
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        });
+
+        console.log({
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        })
+
+        // // Close the modal
+        // let modal = document.getElementById('add-question-modal');
+        // let modalInstance = bootstrap.Modal.getInstance(modal);
+        // modalInstance.hide();
+        window.location.reload();
+    })
+
+
+
     $(document).on("click", ".editButton", function () {
         var postKey = $(this).parent().parent().data("id");
         var postRef = ref(db, 'Users/' + postKey);
@@ -208,36 +449,47 @@ $(document).ready(function () {
             })
 
     })
-    $(".save_edited_data").on("click", (event) => {
-        var edit_name = $(".edit_show_name").val();
-        var show_date = $(".edit_show_date").val();
-        var show_gender = $(".edit_show_gender").val();
-        var show_phone = $(".edit_show_phone").val();
-        var show_email = $(".edit_show_email").val();
-        var show_username = $(".edit_show_userName").val();
-        var show_pass = $(".edit_show_pass").val();
-        var show_status = $(".edit_show_status").val();
-        var edit_key = $(".edit_key").val();
-        // A post entry.
-        const postData = {
-            "fullName": edit_name,
-            "date": changedateformat(show_date),
-            "gender": show_gender,
-            "phoneNo": show_phone,
-            "email": show_email,
-            "userName": show_username,
-            "passWord": show_pass,
-            "otp": show_status
-        };
-        // Get a key for a new Post.
-        //const newPostKey = push(child(ref(db), 'Users')).key;
-        //console.log(edit_key);
-        // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        updates['/Users/' + edit_key] = postData;
-        //updates['/User-posts/' + edit_key] = postData;
-        update(ref(db), updates);
-        $("[data-dismiss=modal]").trigger({type : "click"});
+
+    $(".save_edited_data_2").on("click", (event) => {
+        alert("đã vô");
+        event.preventDefault();
+        let question = document.getElementById('question-1').value;
+        let answer = document.getElementById('answer-2').value;
+        let answerChoices = document.getElementById('answer-choices-3').value.split(',');
+        let type = document.getElementById('type-4').value;
+        let questionId = this.value;
+        console.log(questionId);
+        // Add the new question to the database
+        const db = getDatabase();
+        let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + session);
+        console.log(newQuestionRef);
+       
+        update(newQuestionRef, {
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        })
+        .then(() => {
+           alert('successfully updated!');
+           $('#editModal6').modal('hide');
+           
+        })
+        .catch((error) => {
+            alert('Error updating: ', error);
+        });      
+
+        console.log({
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        })
+
+        // // Close the modal
+        // let modal = document.getElementById('add-question-modal');
+        // let modalInstance = bootstrap.Modal.getInstance(modal);
+        // modalInstance.hide();
         window.location.reload();
     })
 

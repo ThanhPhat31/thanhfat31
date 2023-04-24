@@ -1,99 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!-- My CSS -->
-	<link rel="stylesheet" href="css/style.css">
+		<!-- Boxicons -->
+		<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css'
+			rel='stylesheet'>
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+		<!-- My CSS -->
+		<link rel="stylesheet" href="css/style.css">
 
-	<title>Admin</title>
-</head>
+		<title>Admin</title>
+	</head>
 
-<body>
+	<body>
 
 
-	<!-- SIDEBAR -->
-	<section id="sidebar">
-		<a href="#" class="brand">
-			<i class='bx bxs-smile'></i>
-			<span class="text">Admin</span>
-		</a>
-		<ul class="side-menu top">
-			<li class="">
-				<a href="adminHome.html">
-					<i class='bx bxs-dashboard'></i>
-					<span class="text">User managerment</span>
-				</a>
-			</li>
-			<li class="active">
-				<a href="questionManagerment.html">
-					<i class='bx bxs-dashboard'></i>
-					<span class="text">Question managerment</span>
-				</a>
-			</li>
-			<li class="">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-					aria-expanded="true" aria-controls="collapseTwo">
-					<i class='bx bxs-dashboard'></i>
-					<span>Lesson managerment</span>
-					<i class=''></i>
-				</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="kanji.html">Chữ hán</a>
-						<a class="collapse-item" href="newWord.html">Từ mới</a>
-						<a class="collapse-item" href="#">Ngữ pháp</a>
+		<!-- SIDEBAR -->
+		<section id="sidebar">
+			<a href="#" class="brand">
+				<i class='bx bxs-smile'></i>
+				<span class="text">Admin</span>
+			</a>
+			<ul class="side-menu top">
+				<!-- <li class="">
+					<a href="adminHome.html">
+						<i class='bx bxs-dashboard'></i>
+						<span class="text">User managerment</span>
+					</a>
+				</li> -->
+				<li class="active">
+					<a href="questionManagerment.html">
+						<i class='bx bxs-dashboard'></i>
+						<span class="text">Question managerment</span>
+					</a>
+				</li>
+
+
+			</ul>
+			<ul class="side-menu">
+				<li>
+					<a href="" class="logout" id="logOutLink">
+						<i class='bx bxs-log-out-circle'></i>
+						<span class="text">Logout</span>
+					</a>
+				</li>
+			</ul>
+		</section>
+		<!-- SIDEBAR -->
+
+
+
+		<!-- CONTENT -->
+		<section id="content">
+			<!-- NAVBAR -->
+			<nav>
+				<i class='bx bx-menu'></i>
+				<!-- <a href="#" class="nav-link">Categories</a> -->
+				<form action="#">
+					<div class="form-input">
+						<!-- <input type="search" placeholder="Search..."> -->
+						<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 					</div>
-				</div>
-			</li>
-			
-		</ul>
-		<ul class="side-menu">
-			<li>
-				<a href="" class="logout" id="logOutLink">
-					<i class='bx bxs-log-out-circle'></i>
-					<span class="text">Logout</span>
-				</a>
-			</li>
-		</ul>
-	</section>
-	<!-- SIDEBAR -->
-
-
-
-	<!-- CONTENT -->
-	<section id="content">
-		<!-- NAVBAR -->
-		<nav>
-			<i class='bx bx-menu'></i>
-			<a href="#" class="nav-link">Categories</a>
-			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
-				</div>
-			</form>
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-			<!-- <a href="#" class="notification">
+				</form>
+				<input type="checkbox" id="switch-mode" hidden>
+				<label for="switch-mode" class="switch-mode"></label>
+				<!-- <a href="#" class="notification">
 				<i class='bx bxs-bell'></i>
 				<span class="num">8</span>
 			</a> -->
-			<!-- <a href="#" class="profile">
+				<!-- <a href="#" class="profile">
 				<img src="img/people.png">
 			</a> -->
-		</nav>
-		<!-- NAVBAR -->
+			</nav>
+			<!-- NAVBAR -->
 
-		<!-- MAIN -->
-		<main>
-			<!-- <div class="head-title">
+			<!-- MAIN -->
+			<main>
+				<!-- <div class="head-title">
 				<div class="left">
 					<h1>Dashboard</h1>
 					<ul class="breadcrumb">
@@ -135,178 +124,167 @@
 					</span>
 				</li>
 			</ul> -->
+				<div class="table-data">
+					<div class="order">
+						<div class="head">
+							<h3>Questions</h3>
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#addModal">Add question Type 1 & 2</button>
+								<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#addModal2">Add question Type 3</button> -->
+							<select class="form-select" id="question-list" aria-label="Select a
+								question">
+								<option value="">-- Select a question --</option>
+							</select>
+							<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add question</button> -->
+						</div>
+						<div id="question-container">
+
+						</div>
 
 
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3>Questions</h3>
 					</div>
-					<table>
-						<thead>
-							<tr>
-                                <th>question</th>
-								<th>Answer</th>
-                                <!-- <th>mathching answer</th>
-                                <th>mathching questions</th> -->
-                                <th>Answer choose</th>
-                                <th>type of question</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-							</tr>
-						</tbody>
-					</table>
-
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add question</button>
-
 				</div>
-            </div>
-		</main>
-		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
+			</main>
+			<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+				aria-labelledby="addModal" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
 
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label for="fullName" class="col-form-label">Name:</label>
-							<input type="text" class="form-control show_name" id="fullName">
-						</div>
-						<div class="form-group">
-							<label for="birthOfDate" class="col-form-label">Birth Of Date:</label>
-							<input type="date" class="form-control show_date" id="birthOfDate">
-						</div>
-						<div class="form-group">
-							<label for="gender" class="col-form-label">Gender:</label>
-							<!-- <input type="text" class="form-control show_gender" id="gender"> -->
-							<select class="form-control form-select-sm show_gender"
-								aria-label=".form-select-sm example">
-								<option>Open this select</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="phoneNo" class="col-form-label">Phone number:</label>
-							<input type="text" class="form-control show_phone" id="phoneNo">
-						</div>
-						<div class="form-group">
-							<label for="email" class="col-form-label">Email:</label>
-							<input type="text" class="form-control show_email" id="email">
-						</div>
-						<div class="form-group">
-							<label for="userName" class="col-form-label">User name:</label>
-							<input type="text" class="form-control show_userName" id="userName">
-						</div>
-						<div class="form-group">
-							<label for="passWord" class="col-form-label">Password:</label>
-							<input type="text" class="form-control show_pass" id="passWord">
-						</div>
-						<div class="form-group">
-							<label for="passWord" class="col-form-label">Status:</label>
-
-							<select class="form-control form-select-sm show_status"
-								aria-label=".form-select-sm example">
-								<option>Open this select status</option>
-								<option value="1">Active</option>
-								<option value="0">Deactive</option>
-
-							</select>
-						</div>
+						<div class="modal-body">
+							<form>
+								<div class="mb-3">
+									<label for="question" class="form-label">Question:</label>
+									<input type="text" class="form-control" id="question" name="question">
+								</div>
+								<div class="mb-3">
+									<label for="answer" class="form-label">Answer:</label>
+									<input type="text" class="form-control" id="answer" name="answer">
+								</div>
+								<div class="mb-3">
+									<label for="answer-choices" class="form-label">Answer Choices:</label>
+									<input type="text" class="form-control" id="answer-choices"
+										name="answer-choices">
+								</div>
+								<div class="mb-3">
+									<label for="type" class="form-label">Type of Question:</label>
+									<select class="form-select" id="type" name="type">
+										<option value="multiple-choice">Multiple Choice</option>
+										<option value="1">Type 1</option>
+										<option value="2">Type 2</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<select class="form-select" id="question-list-1" aria-label="Select a
+										question">
+										<option value="">-- Select a question --</option>
+									</select>
+								</div>
+							</form>
 
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary submit">Submit</button>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary submit">Submit</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- edit modal-->
-		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-		
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="fullName" class="col-form-label">Name:</label>
-								<input type="text" class="form-control edit_show_name" id="fullName">
-							</div>
-							<div class="form-group">
-								<label for="birthOfDate" class="col-form-label">Birth Of Date:</label>
-								<input type="date" class="form-control edit_show_date" id="birthOfDate">
-							</div>
-							<div class="form-group">
-								<label for="gender" class="col-form-label">Gender:</label>
-								<!-- <input type="text" class="form-control show_gender" id="gender"> -->
-								<select class="form-control form-select-sm edit_show_gender"
-									aria-label=".form-select-sm example">
-									<option>Open this select</option>
-									<option value="Male">Male</option>
-									<option value="Female">Female</option>
-		
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="phoneNo" class="col-form-label">Phone number:</label>
-								<input type="text" class="form-control edit_show_phone" id="phoneNo">
-							</div>
-							<div class="form-group">
-								<label for="email" class="col-form-label">Email:</label>
-								<input type="text" class="form-control edit_show_email" id="email">
-							</div>
-							<div class="form-group">
-								<label for="userName" class="col-form-label">User name:</label>
-								<input type="text" class="form-control edit_show_userName" id="userName">
-							</div>
-							<div class="form-group">
-								<label for="passWord" class="col-form-label">Password:</label>
-								<input type="text" class="form-control edit_show_pass" id="passWord">
-							</div>
-							<div class="form-group">
-								<label for="passWord" class="col-form-label">Status:</label>
-		
-								<select class="form-control form-select-sm edit_show_status"
-									aria-label=".form-select-sm example">
-									<option>Open this select status</option>
-									<option value="1">Active</option>
-									<option value="0">Deactive</option>
-		
-								</select>
-							</div>
-							<input class="edit_key" type="hidden">
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary save_edited_data">Save</button>
+
+			<div class="modal fade" id="addModal2" tabindex="-1" role="dialog"
+				aria-labelledby="addModal" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+
+						<div class="modal-body">
+							<form>
+								<div class="mb-3">
+									<label for="question" class="form-label">Question:</label>
+									<input type="text" class="form-control" id="question" name="question">
+								</div>
+								<div class="mb-3">
+									<label for="answer" class="form-label">Answer:</label>
+									<input type="text" class="form-control" id="answer" name="answer">
+								</div>
+								<div class="mb-3">
+									<label for="answer-choices" class="form-label">Answer Choices:</label>
+									<input type="text" class="form-control" id="answer-choices"
+										name="answer-choices">
+								</div>
+								<div class="mb-3">
+									<select class="form-select" id="question-list-2" aria-label="Select a
+										question">
+										<option value="">-- Select a question --</option>
+									</select>
+								</div>
+							</form>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary submit">Submit</button>
+						</div>
 					</div>
 				</div>
-				
 			</div>
-		
-		</div>
-		<!-- MAIN -->
-	</section>
-	<!-- CONTENT -->
+			<!-- edit modal-->
+			<div class="modal fade" id="editModal6" tabindex="-1" role="dialog"
+				aria-labelledby="editModal6" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<form>
+								<div class="mb-3">
+									<label for="question" class="form-label">Question:</label>
+									<input type="text" class="form-control" id="question-1" name="question">
+								</div>
+								<div class="mb-3">
+									<label for="answer" class="form-label">Answer:</label>
+									<input type="text" class="form-control" id="answer-2" name="answer">
+								</div>
+								<div class="mb-3">
+									<label for="answer-choices" class="form-label">Answer Choices:</label>
+									<input type="text" class="form-control" id="answer-choices-3"
+										name="answer-choices">
+								</div>
+								<div class="mb-3">
+									<label for="type" class="form-label">Type of Question:</label>
+									<select class="form-select" id="type-4" name="type">
+										<option value="multiple-choice">Multiple Choice</option>
+										<option value="1">Type 1</option>
+										<option value="2">Type 2</option>
+									</select>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary save_edited_data_2">Save</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- MAIN -->
+		</section>
+		<!-- CONTENT -->
 
 
-	<script src="js/qs.js" type="module"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-</body>
+		<script src="js/qs.js" type="module"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	</body>
 
 </html>
