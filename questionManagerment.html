@@ -28,33 +28,19 @@
 				<span class="text">Admin</span>
 			</a>
 			<ul class="side-menu top">
-				<!-- <li class="">
-					<a href="adminHome.html">
+				<li class="">
+					<!-- <a href="adminHome.html">
 						<i class='bx bxs-dashboard'></i>
 						<span class="text">User managerment</span>
-					</a>
-				</li> -->
+					</a> -->
+				</li>
 				<li class="active">
 					<a href="questionManagerment.html">
 						<i class='bx bxs-dashboard'></i>
 						<span class="text">Question managerment</span>
 					</a>
 				</li>
-				<li class="active">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-						aria-expanded="true" aria-controls="collapseTwo">
-						<i class='bx bxs-dashboard'></i>
-						<span>Lesson managerment</span>
-						<i class=''></i>
-					</a>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="kanji.html">Chữ hán</a>
-							<a class="collapse-item" href="newWord.html">Từ mới</a>
-							<a class="collapse-item" href="#">Ngữ pháp</a>
-						</div>
-					</div>
-				</li>
+
 
 			</ul>
 			<ul class="side-menu">
@@ -75,10 +61,10 @@
 			<!-- NAVBAR -->
 			<nav>
 				<i class='bx bx-menu'></i>
-				<!-- <a href="#" class="nav-link">Categories</a> -->
+				<a href="#" class="nav-link">Categories</a>
 				<form action="#">
 					<div class="form-input">
-						<!-- <input type="search" placeholder="Search..."> -->
+						<input type="search" placeholder="Search...">
 						<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 					</div>
 				</form>
@@ -169,28 +155,27 @@
 							<form>
 								<div class="mb-3">
 									<label for="question" class="form-label">Question:</label>
-									<input type="text" class="form-control" id="question" name="question">
+									<input type="text" class="form-control" id="question" name="question" required>
 								</div>
 								<div class="mb-3">
 									<label for="answer" class="form-label">Answer:</label>
-									<input type="text" class="form-control" id="answer" name="answer">
+									<input type="text" class="form-control" id="answer" name="answer" required>
 								</div>
 								<div class="mb-3">
 									<label for="answer-choices" class="form-label">Answer Choices:</label>
 									<input type="text" class="form-control" id="answer-choices"
-										name="answer-choices">
+										name="answer-choices" required>
 								</div>
 								<div class="mb-3">
 									<label for="type" class="form-label">Type of Question:</label>
-									<select class="form-select" id="type" name="type">
-										<option value="multiple-choice">Multiple Choice</option>
+									<select class="form-select" id="type" name="type" required>
 										<option value="1">Type 1</option>
 										<option value="2">Type 2</option>
 									</select>
 								</div>
 								<div class="mb-3">
 									<select class="form-select" id="question-list-1" aria-label="Select a
-										question">
+										question" required>
 										<option value="">-- Select a question --</option>
 									</select>
 								</div>
@@ -205,7 +190,7 @@
 					</div>
 				</div>
 			</div>
-
+<!-- 
 			<div class="modal fade" id="addModal2" tabindex="-1" role="dialog"
 				aria-labelledby="addModal" aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -242,7 +227,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- edit modal-->
 			<div class="modal fade" id="editModal6" tabindex="-1" role="dialog"
 				aria-labelledby="editModal6" aria-hidden="true">
@@ -252,21 +237,20 @@
 							<form>
 								<div class="mb-3">
 									<label for="question" class="form-label">Question:</label>
-									<input type="text" class="form-control" id="question-1" name="question">
+									<input type="text" class="form-control" id="question-1" name="question" required>
 								</div>
 								<div class="mb-3">
 									<label for="answer" class="form-label">Answer:</label>
-									<input type="text" class="form-control" id="answer-2" name="answer">
+									<input type="text" class="form-control" id="answer-2" name="answer" required>
 								</div>
 								<div class="mb-3">
 									<label for="answer-choices" class="form-label">Answer Choices:</label>
 									<input type="text" class="form-control" id="answer-choices-3"
-										name="answer-choices">
+										name="answer-choices" required>
 								</div>
 								<div class="mb-3">
 									<label for="type" class="form-label">Type of Question:</label>
-									<select class="form-select" id="type-4" name="type">
-										<option value="multiple-choice">Multiple Choice</option>
+									<select class="form-select" id="type-4" name="type" required>
 										<option value="1">Type 1</option>
 										<option value="2">Type 2</option>
 									</select>
