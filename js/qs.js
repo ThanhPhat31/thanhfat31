@@ -494,8 +494,21 @@ $(document).ready(function () {
     })
 
     $(document).on("click", ".deleteButton", function () {
-        var delete_key = $(this).parent().parent().data("id");
-        remove(child(dbRef, "Users/" + delete_key));
+        
+        
+        const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
+        if (result) {
+            // Nếu người dùng chọn OK, xóa đối tượng
+            var delete_key = $(this).parent().parent().data("id");
+            remove(child(dbRef, "Users/" + delete_key));
+            remove(child(kanjiRef, delete_key))
+                .then(() => {
+                    console.log("Đối tượng đã được xóa thành công!");
+                })
+                .catch((error) => {
+                    console.error("Xóa đối tượng thất bại: ", error);
+                });
+        }
         $(this).parent().parent().hide();
     })
 })

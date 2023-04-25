@@ -197,7 +197,7 @@ $(document).ready(function () {
         if (result) {
             // Nếu người dùng chọn OK, xóa đối tượng
             var delete_key = $(this).parent().parent().data("id");
-            const kanjiRef = ref(db, `learndekiru/${show_lessonList.value}/kanji`);s
+            const kanjiRef = ref(db, `learndekiru/${show_lessonList.value}/kanji`);
             remove(child(kanjiRef, delete_key))
                 .then(() => {
                     console.log("Đối tượng đã được xóa thành công!");
