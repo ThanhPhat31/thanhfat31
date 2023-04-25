@@ -32,7 +32,7 @@ document.getElementById("logOutLink").addEventListener('click', (e) => {
         // Sign-out successful.
         console.log('Sign-out successful.');
         alert('Sign-out successful.');
-        window.location = "loginAdmin.html";
+        window.location = "loginuser.html";
         //document.getElementById('logOut').style.display = 'none';
     }).catch((error) => {
         // An error happened.
@@ -256,6 +256,12 @@ $(document).ready(function () {
         var show_status = $(".edit_show_status").val();
         var edit_key = $(".edit_key").val();
         // A post entry.
+        let nameregex = /^[a-zA-Z\s]+$/;
+        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        let usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
+        let passregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
+        let dateregex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+        let phoneregex = /^0\d{9,10}$/;
         const postData = {
             "fullName": edit_name,
             "date": changedateformat(show_date),
@@ -270,12 +276,39 @@ $(document).ready(function () {
         //const newPostKey = push(child(ref(db), 'Users')).key;
         //console.log(edit_key);
         // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        updates['/Users/' + edit_key] = postData;
-        //updates['/User-posts/' + edit_key] = postData;
-        update(ref(db), updates);
-        $("[data-dismiss=modal]").trigger({type : "click"});
-        window.location.reload();
+        if (edit_name.length == 0 || show_date.length == 0 || show_gender.length == 0 || show_phone.length == 0 || show_email.length == 0 || show_username.length == 0 || show_pass.length == 0 || show_status.length == 0) {
+            alert("You can not leave any fields emty!"); return;
+        }
+        else if (!nameregex.test(edit_name)) {
+            alert("The name should only contain alphabet");
+            return false;
+        }
+        else if (!dateregex.test(changedateformat(show_date))) {
+            alert("Dates must be in the format dd/mm/yyyy");
+            return false;
+        }
+        else if (!phoneregex.test(show_phone)) {
+            alert("Invalid phone number Exam: 0976340***");
+            return false;
+        }
+        else if (!emailregex.test(show_email)) {
+            alert("Invalid email format Exam:A@gmail.com");
+            return false;
+        }
+        else if (!usernameregex.test(show_username)) {
+            alert("Username is 8-20 characters long Example: vanAnh123");
+            return false;
+        }
+        else if (!passregex.test(show_pass)) {
+            alert("Invalid password,one character,one uppercasse Example: LuanptA123");
+        }
+        else {
+            const updates = {};
+            updates['/Users/' + edit_key] = postData;
+            update(ref(db), updates);
+            $("[data-dismiss=modal]").trigger({type : "click"});
+         //window.location.reload();
+        }
     })
 
     $(document).on("click", ".deleteButton", function () {
