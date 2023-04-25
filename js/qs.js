@@ -500,8 +500,7 @@ $(document).ready(function () {
         if (result) {
             // Nếu người dùng chọn OK, xóa đối tượng
             var delete_key = $(this).parent().parent().data("id");
-            remove(child(dbRef, "Users/" + delete_key));
-            remove(child(kanjiRef, delete_key))
+            remove(child(dbRef, "Users/" + delete_key))
                 .then(() => {
                     console.log("Đối tượng đã được xóa thành công!");
                 })
