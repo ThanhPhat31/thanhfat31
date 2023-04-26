@@ -73,8 +73,8 @@ submitData.addEventListener('click', (e) => {
             })
                 .then(() => {
                     // Data saved successfully!
-                    alert('Admin logged in successfully');
-                    window.location = "adminHome.html";
+                    alert('MOD logged in successfully');
+                    window.location = "modhome.html";
                 })
                 .catch((error) => {
                     // The write failed...
