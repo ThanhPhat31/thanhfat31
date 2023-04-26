@@ -32,7 +32,7 @@ document.getElementById("logOutLink").addEventListener('click', (e) => {
         // Sign-out successful.
         console.log('Sign-out successful.');
         alert('Sign-out successful.');
-        window.location = "loginAdmin.html";
+        window.location = "loginuser.html";
         //document.getElementById('logOut').style.display = 'none';
     }).catch((error) => {
         // An error happened.
@@ -72,7 +72,27 @@ function changedateformat1(val) {
     let formatteddate = day + "-" + month + "-" + year;
     return formatteddate;
 }
-
+function checkDate() {
+    var regex = /^(1[89]|[2-9][0-9])\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+    var date = document.getElementById('birthOfDate').value.trim();
+    if (regex.test(date)) {
+        var birthday = new Date(date); // Khởi tạo một đối tượng
+        var ageDiffMs = Date.now() - birthday.getTime(); // Tính khoảng thời gian giữa ngày hiện tại và ngày sinh
+        var ageDate = new Date(ageDiffMs);
+        var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+        // Tính toán số tuổi bằng cách lấy hiệu giữa năm hiện tại và năm 1970 (năm đầu tiên được hỗ trợ bởi hàm getUTCFullYear() của đối tượng Date).
+        if (age < 12) {
+            document.getElementById("txtDateMessage").innerHTML = "You must be over 12 years old";
+            return false;
+        } else {
+            document.getElementById("txtDateMessage").innerHTML = "";
+            return true;
+        }
+    } else {
+        document.getElementById("txtDateMessage").innerHTML = "Dates must be in the format yyyy-mm-dd";
+        return false;
+    }
+}
 
 $(document).ready(function () {
 
@@ -80,8 +100,8 @@ $(document).ready(function () {
     const usersRef = ref(db, 'Users/');
     onValue(usersRef, (snapshot) => {
         const Users = snapshot.val();
-        //console.log(snapshot.val())
-        tableBody.innerHTML = "";;
+        console.log(snapshot.val())
+        tableBody.innerHTML = "";
         for (let user in Users) {
             // console.log(snapshot.key);
             let tr =
@@ -95,10 +115,11 @@ $(document).ready(function () {
                     <td>${Users[user].email}</td>
                     <td>${Users[user].userName}</td>
                     <td>${Users[user].passWord}</td>
+                    <td>${Users[user].roles}</td>
                     <td>${Users[user].otp}</td>
                     <td>
                         <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
-                        <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
+                        
                     </td>
                 </tr>`
             tableBody.innerHTML += tr;
@@ -182,7 +203,7 @@ $(document).ready(function () {
                     // ... user.uid
                     set(ref(database, 'Users/' + user.uid), {
                         "fullName": name,
-                        "date": changedateformat(date),
+                        "date": date,
                         "gender": gender,
                         "phoneNo": phoneNo,
                         "email": email,
@@ -255,6 +276,12 @@ $(document).ready(function () {
         var show_pass = $(".edit_show_pass").val();
         var show_status = $(".edit_show_status").val();
         var edit_key = $(".edit_key").val();
+        let nameregex = /^[a-zA-Z\s]+$/;
+        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        let usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
+        let passregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
+        let dateregex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+        let phoneregex = /^0\d{9,10}$/;
         // A post entry.
         const postData = {
             "fullName": edit_name,
@@ -270,12 +297,43 @@ $(document).ready(function () {
         //const newPostKey = push(child(ref(db), 'Users')).key;
         //console.log(edit_key);
         // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        updates['/Users/' + edit_key] = postData;
+        
         //updates['/User-posts/' + edit_key] = postData;
-        update(ref(db), updates);
-        $("[data-dismiss=modal]").trigger({type : "click"});
-        window.location.reload();
+        if (edit_name.length == 0 || show_date.length == 0 || show_gender.length == 0 || show_phone.length == 0 || show_email.length == 0 || show_username.length == 0 || show_pass.length == 0 || show_status.length == 0) {
+            alert("You can not leave any fields emty!"); return;
+        }
+        else if (!nameregex.test(edit_name)) {
+            alert("The name should only contain alphabet");
+            return false;
+        }
+        else if (!dateregex.test(changedateformat(show_date))) {
+            alert("Dates must be in the format dd/mm/yyyy");
+            return false;
+        }
+        else if (!phoneregex.test(show_phone)) {
+            alert("Invalid phone number Exam: 0976340***");
+            return false;
+        }
+        else if (!emailregex.test(show_email)) {
+            alert("Invalid email format Exam:A@gmail.com");
+            return false;
+        }
+        else if (!usernameregex.test(show_username)) {
+            alert("Username is 8-20 characters long Example: vanAnh123");
+            return false;
+        }
+        else if (!passregex.test(show_pass)) {
+            alert("Invalid password,one character,one uppercasse Example: LuanptA123");
+        }
+        else {
+            const updates = {};
+            updates['/Users/' + edit_key] = postData;
+            update(ref(db), updates);
+            $("[data-dismiss=modal]").trigger({type : "click"});
+         //window.location.reload();
+        }
+        
+        
     })
 
     $(document).on("click", ".deleteButton", function () {

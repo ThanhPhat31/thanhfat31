@@ -96,7 +96,7 @@ document.getElementById("logOutLink").addEventListener('click', function () {
         // Sign-out successful.
         console.log('Sign-out successful.');
         alert('Sign-out successful.');
-        window.location = "loginAdmin.html";
+        window.location = "loginuser.html";
         //document.getElementById('logOut').style.display = 'none';
     }).catch((error) => {
         // An error happened.
