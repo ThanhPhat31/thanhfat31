@@ -45,14 +45,14 @@ var show_lessonList = document.getElementById("show_lessonList");
 function getSeclectValue() {
     const db = getDatabase();
     const kanjiRef = ref(db, `learndekiru/bai1/kanji`);
-        onValue(kanjiRef, (snapshot) => {
-            const kanji = snapshot.val();
-            //console.log(snapshot.val());
-            tableBody.innerHTML = "";
-            for (let kj in kanji) {
-                //console.log(kanji[kj]);
-                let tr =
-                    `<tr data-id="${kj}">
+    onValue(kanjiRef, (snapshot) => {
+        const kanji = snapshot.val();
+        //console.log(snapshot.val());
+        tableBody.innerHTML = "";
+        for (let kj in kanji) {
+            //console.log(kanji[kj]);
+            let tr =
+                `<tr data-id="${kj}">
                         <td>
                             ${kj}
                         </td>
@@ -65,12 +65,12 @@ function getSeclectValue() {
                             <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
                         </td>
                     </tr>`
-                tableBody.innerHTML += tr;
+            tableBody.innerHTML += tr;
 
-            }
+        }
 
-        });
-        //location.reload();
+    });
+    //location.reload();
 }
 $(document).ready(function () {
     const db = getDatabase();
@@ -130,20 +130,40 @@ $(document).ready(function () {
         var kanji = $("#addModal .show_kanji").val();
         var mean = $("#addModal .show_mean").val();
         var read = $("#addModal .show_read").val();
-        //console.log(lesson, kanji, mean, read);
-        set(ref(db, `learndekiru/${lesson}/${type}/${kanji}`), {
-            mean: mean,
-            read: read
-        })
-            .then(() => {
-                alert("Thanh cong");
-                //location.reload();
-            })
-            .catch((error) => {
-                alert("Error: " + error);
-            });
+        let regexKanji = /^[一-龥]+$/;
+        let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
+        let regexRead = /^[ぁ-んァ-ン]+$/;
 
-        $("[data-dismiss=modal]").trigger({ type: "click" });
+
+        if (kanji.length == 0 || mean.length == 0 || read.length == 0) {
+            alert("Không để trường nào trống"); return;
+        } else if (!regexKanji.test(kanji)) {
+            alert("Hãy nhập hán tự!");
+            return false;
+        } else if (!regexMean.test(mean)) {
+            alert("Nghĩa chỉ nên có chữ cái tiếng việt");
+            return false;
+        } else if (!regexRead.test(read)) {
+            alert("Cách đọc chỉ nên có chữ hiragana and katakana");
+            return false;
+        }
+        else {
+            set(ref(db, `learndekiru/${lesson}/${type}/${kanji}`), {
+                mean: mean,
+                read: read
+            })
+                .then(() => {
+                    alert("Thanh cong");
+                    //location.reload();
+                })
+                .catch((error) => {
+                    alert("Error: " + error);
+                });
+
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
+        //console.log(lesson, kanji, mean, read);
+
 
     })
     $(document).on("click", ".editButton", function () {
@@ -174,21 +194,40 @@ $(document).ready(function () {
         //var show_phone = $(".edit_show_phone").val();
         var reading = $(".edit_show_read").val();
         var edit_key = $(".edit_key").val();
+        let regexKanji = /^[一-龥]+$/;
+        let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
+        let regexRead = /^[ぁ-んァ-ン]+$/;
+
         // A post entry.
         const postData = {
             "mean": meaning,
             "read": reading
         };
+        if (kanji.length == 0 || meaning.length == 0 || reading.length == 0) {
+            alert("Không để trường nào trống"); return;
+        } else if (!regexKanji.test(kanji)) {
+            alert("Hãy nhập hán tự!");
+            return false;
+        } else if (!regexMean.test(meaning)) {
+            alert("Nghĩa chỉ nên có chữ cái tiếng việt");
+            return false;
+        } else if (!regexRead.test(reading)) {
+            alert("Cách đọc chỉ nên có chữ hiragana and katakana");
+            return false;
+        }
+        else {
+            const updates = {};
+            updates[`/learndekiru/${show_lessonList.value}/kanji/` + edit_key] = postData;
+            //updates['/User-posts/' + edit_key] = postData;
+            update(ref(db), updates);
+            alert("Thanh cong");
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
         // Get a key for a new Post.
         //const newPostKey = push(child(ref(db), 'Users')).key;
         //console.log(edit_key);
         // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        updates[`/learndekiru/${show_lessonList.value}/kanji/` + edit_key] = postData;
-        //updates['/User-posts/' + edit_key] = postData;
-        update(ref(db), updates);
-        alert("Thanh cong")
-        $("[data-dismiss=modal]").trigger({ type: "click" });
+
         //window.location.reload();
     })
 
@@ -205,8 +244,10 @@ $(document).ready(function () {
                 .catch((error) => {
                     console.error("Xóa đối tượng thất bại: ", error);
                 });
+        }else{
+            console.log("Đã hủy xóa dữ liệu");
         }
-        $(this).parent().parent().hide();
+        //$(this).parent().parent().hide();
     })
 })
 

@@ -56,8 +56,11 @@ function getSeclectValue() {
                         
                         <td>${nw}</td>
     
-                        <td>${newword[nw]}</td>
-    
+                        <td>${newword[nw].mean}</td>
+                        <td>
+                            <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
+                            <button type="button" class="btn btn-outline-dark deleteButton">Delete</button>
+                        </td>
                         
                     </tr>`
             tableBody.innerHTML += tr;
@@ -103,8 +106,11 @@ $(document).ready(function () {
                         
                 <td>${nw}</td>
 
-                <td>${newword[nw]}</td>
-
+                <td>${newword[nw].mean}</td>
+                <td>
+                    <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
+                    <button type="button" class="btn btn-outline-dark deleteButton" id="deleteButton">Delete</button>
+                 </td>
                 
             </tr>`
                 tableBody.innerHTML += tr;
@@ -119,95 +125,115 @@ $(document).ready(function () {
         var type = $("#addModal .show_type").val();
         var newword = $("#addModal .show_newword").val();
         var mean = $("#addModal .show_mean").val();
-        
-        //console.log(lesson, kanji, mean, read);
-        push(ref(db, `learndekiru/${lesson}/${type}/`+ `/`), {
-            [newword] : mean
-        })
-            .then(() => {
-                alert("Thanh cong");
-                //location.reload();
-            })
-            .catch((error) => {
-                alert("Error: " + error);
-            });
+        let regexWord = /^[ぁ-んァ-ン一-龥]/;
+        let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
 
-        $("[data-dismiss=modal]").trigger({ type: "click" });
+
+        if (newword.length == 0 || mean.length == 0) {
+            alert("Không được để trường nào trống"); return;
+        } else if (!regexWord.test(newword)) {
+            alert("Từ mới chỉ nên có tiếng nhật");
+            return false;
+        } else if (!regexMean.test(mean)) {
+            alert("Nghĩa chỉ nên có tiếng việt");
+            return false;
+        }
+        else {
+            set(ref(db, `learndekiru/${lesson}/${type}/${newword}`), {
+                mean: mean
+            })
+                .then(() => {
+                    alert("Thanh cong");
+                    //location.reload();
+                })
+                .catch((error) => {
+                    alert("Error: " + error);
+                });
+
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
+        //console.log(lesson, kanji, mean, read);
+
 
     })
-    // $(document).on("click", ".editButton", function () {
-    //     var postKey = $(this).parent().parent().data("id");
-    //     const kanjiRef = ref(db, `learndekiru/${show_lessonList.value}/kanji`);
-    //     //console.log(show_lessonList.value);
-    //     get(child(kanjiRef, postKey)).then((snapshot => {
-    //         //console.log(snapshot.val());
-    //         if (snapshot.exists()) {
-    //             $("#editModal .edit_show_lesson").val(show_lessonList.value);
-    //             $("#editModal .edit_show_kanji").val(postKey);
-    //             $("#editModal .edit_show_mean").val(snapshot.val().mean);
-    //             $("#editModal .edit_show_read").val(snapshot.val().read);
-    //             $(".edit_key").val(postKey);
-    //         }
-    //         else {
-    //             alert("no data found");
-    //         }
-    //     }))
-    //         .catch((error) => {
-    //             alert("loi roi" + error);
-    //         })
-    // })
-    // $(document).on("click", ".save_edited_data", (event) => {
-    //     var lesson = $(".edit_show_lesson").val();
-    //     var kanji = $(".edit_show_kanji").val();
-    //     var meaning = $(".edit_show_mean").val();
-    //     //var show_phone = $(".edit_show_phone").val();
-    //     var reading = $(".edit_show_read").val();
-    //     var edit_key = $(".edit_key").val();
-    //     // A post entry.
-    //     const postData = {
-    //         "mean": meaning,
-    //         "read": reading
-    //     };
-    //     // Get a key for a new Post.
-    //     //const newPostKey = push(child(ref(db), 'Users')).key;
-    //     //console.log(edit_key);
-    //     // Write the new post's data simultaneously in the posts list and the user's post list.
-    //     const updates = {};
-    //     updates[`/learndekiru/${show_lessonList.value}/kanji/` + edit_key] = postData;
-    //     //updates['/User-posts/' + edit_key] = postData;
-    //     update(ref(db), updates);
-    //     alert("Thanh cong")
-    //     $("[data-dismiss=modal]").trigger({ type: "click" });
-    //     //window.location.reload();
-    // })
+    $(document).on("click", ".editButton", function () {
+        var postKey = $(this).parent().parent().data("id");
+        const newWordRef = ref(db, `learndekiru/${show_lessonList.value}/newword`);
+        //console.log(postKey);
+        get(child(newWordRef, postKey)).then((snapshot => {
+            //console.log(snapshot.val());
+            if (snapshot.exists()) {
+                $("#editModal .edit_show_lesson").val(show_lessonList.value);
+                $("#editModal .edit_show_newword").val(postKey);
+                $("#editModal .edit_show_mean").val(snapshot.val().mean);
+                $(".edit_key").val(postKey);
+            }
+            else {
+                alert("no data found");
+            }
+        }))
+            .catch((error) => {
+                alert("loi roi" + error);
+            })
+    })
+    $(document).on("click", ".save_edited_data", (event) => {
+        var lesson = $(".edit_show_lesson").val();
+        var newword = $(".edit_show_newword").val();
+        var meaning = $(".edit_show_mean").val();
+        //var show_phone = $(".edit_show_phone").val();
+        //var reading = $(".edit_show_read").val();
+        var edit_key = $(".edit_key").val();
+        let regexWord = /^[ぁ-んァ-ン一-龥]/;
+        let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
+        // A post entry.
+        const postData = {
+            "mean": meaning,
+        };
 
-    // $(document).on("click", ".deleteButton", function () {
-    //     const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
-    //     if (result) {
-    //         // Nếu người dùng chọn OK, xóa đối tượng
-    //         var delete_key = $(this).parent().parent().data("id");
-    //         const kanjiRef = ref(db, `learndekiru/${show_lessonList.value}/kanji`); s
-    //         remove(child(kanjiRef, delete_key))
-    //             .then(() => {
-    //                 console.log("Đối tượng đã được xóa thành công!");
-    //             })
-    //             .catch((error) => {
-    //                 console.error("Xóa đối tượng thất bại: ", error);
-    //             });
-    //     }
-    //     $(this).parent().parent().hide();
-    // })
+        if (newword.length == 0 || meaning.length == 0 || lesson.length == 0) {
+            alert("Không được để trường nào trống"); return;
+        } else if (!regexWord.test(newword)) {
+            alert("Từ mới chỉ nên có tiếng nhật");
+            return false;
+        } else if (!regexMean.test(meaning)) {
+            alert("Nghĩa chỉ nên có tiếng việt");
+            return false;
+        }
+        else {
+            const updates = {};
+            updates[`/learndekiru/${show_lessonList.value}/newword/` + edit_key] = postData;
+            //updates['/User-posts/' + edit_key] = postData;
+            update(ref(db), updates);
+            alert("Thanh cong");
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
+        // Get a key for a new Post.
+        //const newPostKey = push(child(ref(db), 'Users')).key;
+        //console.log(edit_key);
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+
+        //window.location.reload();
+    })
+    $(document).on("click", ".deleteButton", function () {
+        const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
+        if (result) {
+            // Nếu người dùng chọn OK, xóa đối tượng
+            var delete_key = $(this).parent().parent().data("id");
+            //console.log((delete_key))
+            const newWordRef = ref(db, `learndekiru/${show_lessonList.value}/newword`);
+            remove(child(newWordRef, delete_key))
+                .then(() => {
+                    console.log("Đối tượng đã được xóa thành công!");
+                })
+                .catch((error) => {
+                    console.error("Xóa đối tượng thất bại: ", error);
+                });
+        } else {
+            console.log("Đã hủy xóa dữ liệu");
+        }
+        //$(this).parent().parent().hide();
+    })
 })
-
-
-
-
-
-
-
-
-
-
 
 
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
@@ -239,17 +265,9 @@ const searchButton = document.querySelector('#content nav form .form-input butto
 const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
 const searchForm = document.querySelector('#content nav form');
 
-searchButton.addEventListener('click', function (e) {
-    if (window.innerWidth < 576) {
-        e.preventDefault();
-        searchForm.classList.toggle('show');
-        if (searchForm.classList.contains('show')) {
-            searchButtonIcon.classList.replace('bx-search', 'bx-x');
-        } else {
-            searchButtonIcon.classList.replace('bx-x', 'bx-search');
-        }
-    }
-})
+
+
+
 
 
 if (window.innerWidth < 768) {
