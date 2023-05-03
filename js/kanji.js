@@ -127,12 +127,12 @@ $(document).ready(function () {
     $("#addModal .submit").on("click", () => {
         var lesson = $("#addModal .show_lesson").val();
         var type = $("#addModal .show_type").val();
-        var kanji = $("#addModal .show_kanji").val();
-        var mean = $("#addModal .show_mean").val();
-        var read = $("#addModal .show_read").val();
-        let regexKanji = /^[一-龥]+$/;
+        var kanji = $("#addModal .show_kanji").val().replace(/\s{2,}/g, ' ').trim();
+        var mean = $("#addModal .show_mean").val().replace(/\s{2,}/g, ' ').trim();
+        var read = $("#addModal .show_read").val().replace(/\s{2,}/g, ' ').trim();
+        let regexKanji = /^[一-龥\s]+$/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
-        let regexRead = /^[ぁ-んァ-ン/,\()\s]+$/;
+        let regexRead = /^[ぁ-んァ-ン/,\()]+$/;
 
 
         if (kanji.length == 0 || mean.length == 0 || read.length == 0) {
@@ -189,10 +189,10 @@ $(document).ready(function () {
     })
     $(document).on("click", ".save_edited_data", (event) => {
         var lesson = $(".edit_show_lesson").val();
-        var kanji = $(".edit_show_kanji").val();
-        var meaning = $(".edit_show_mean").val();
+        var kanji = $(".edit_show_kanji").val().replace(/\s{2,}/g, ' ').trim();
+        var meaning = $(".edit_show_mean").val().replace(/\s{2,}/g, ' ').trim();
         //var show_phone = $(".edit_show_phone").val();
-        var reading = $(".edit_show_read").val();
+        var reading = $(".edit_show_read").val().replace(/\s{2,}/g, ' ').trim();
         var edit_key = $(".edit_key").val();
         let regexKanji = /^[一-龥]+$/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;

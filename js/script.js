@@ -32,7 +32,7 @@ document.getElementById("logOutLink").addEventListener('click', (e) => {
         // Sign-out successful.
         console.log('Sign-out successful.');
         alert('Sign-out successful.');
-        window.location = "loginuser.html";
+        window.location = "loginAdmin.html";
         //document.getElementById('logOut').style.display = 'none';
     }).catch((error) => {
         // An error happened.
@@ -115,7 +115,6 @@ $(document).ready(function () {
                     <td>${Users[user].email}</td>
                     <td>${Users[user].userName}</td>
                     <td>${Users[user].passWord}</td>
-                    <td>${Users[user].roles}</td>
                     <td>${Users[user].otp}</td>
                     <td>
                         <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
@@ -276,7 +275,7 @@ $(document).ready(function () {
         var show_pass = $(".edit_show_pass").val();
         var show_status = $(".edit_show_status").val();
         var edit_key = $(".edit_key").val();
-        let nameregex = /^[a-zA-Z\s]+$/;
+        let nameregex = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
         let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook|fpt.edu)\.com$/;
         let usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
         let passregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;

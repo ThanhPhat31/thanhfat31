@@ -5,7 +5,7 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+import { getDatabase, set, ref, update ,get} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -73,8 +73,21 @@ submitData.addEventListener('click', (e) => {
             })
                 .then(() => {
                     // Data saved successfully!
-                    alert('Admin logged in successfully');
-                    window.location = "questionManagerment.html";
+                    const userRef = ref(database,'Admins/' + user.uid);
+                    get(userRef).then((snapshot) => {
+                        const userProfile = snapshot.val();
+                        console.log(userProfile);
+                        // Check the user's roles to determine their level of access
+                        if (userProfile.roles === 'admin') {
+                            window.location = "adminHome.html";
+                        } else if(userProfile.roles === 'lecturer'){
+                            window.location = "questionManagerment.html";
+                        }
+                        else {
+                            // Redirect to home page or show error message
+                            alert("You have no permission to this!");
+                        }
+                    });
                 })
                 .catch((error) => {
                     // The write failed...

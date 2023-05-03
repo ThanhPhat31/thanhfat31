@@ -408,6 +408,7 @@ $(document).ready(function () {
         let type = document.getElementById('type').value;
         let questionId = this.value;
         console.log(nameSelected);
+        
         if (question && answer && answerChoices.length && type && nameSelected) {
             // Add the new question to the database
             let newQuestionRef = push(ref(db, 'questions/' + nameSelected));
@@ -437,33 +438,33 @@ $(document).ready(function () {
 
 
 
-    $(document).on("click", ".editButton", function () {
-        var postKey = $(this).parent().parent().data("id");
-        var postRef = ref(db, 'Users/' + postKey);
-        const dbRef = ref(db);
-        //console.log(postKey);
-        get(child(dbRef, "Users/" + postKey)).then((snapshot => {
-            if (snapshot.exists()) {
+    // $(document).on("click", ".editButton", function () {
+    //     var postKey = $(this).parent().parent().data("id");
+    //     var postRef = ref(db, 'Users/' + postKey);
+    //     const dbRef = ref(db);
+    //     //console.log(postKey);
+    //     get(child(dbRef, "Users/" + postKey)).then((snapshot => {
+    //         if (snapshot.exists()) {
 
-                $("#editModal .edit_show_name").val(snapshot.val().fullName);
-                $("#editModal .edit_show_date").val(changedateformat1(snapshot.val().date));
-                $("#editModal .edit_show_gender").val(snapshot.val().gender);
-                $("#editModal .edit_show_phone").val(snapshot.val().phoneNo);
-                $("#editModal .edit_show_email").val(snapshot.val().email);
-                $("#editModal .edit_show_userName").val(snapshot.val().userName);
-                $("#editModal .edit_show_pass").val(snapshot.val().passWord);
-                $("#editModal .edit_show_status").val(snapshot.val().otp);
-                $(".edit_key").val(postKey);
-            }
-            else {
-                alert("no data found");
-            }
-        }))
-            .catch((error) => {
-                alert("loi roi" + error);
-            })
+    //             $("#editModal .edit_show_name").val(snapshot.val().fullName);
+    //             $("#editModal .edit_show_date").val(changedateformat1(snapshot.val().date));
+    //             $("#editModal .edit_show_gender").val(snapshot.val().gender);
+    //             $("#editModal .edit_show_phone").val(snapshot.val().phoneNo);
+    //             $("#editModal .edit_show_email").val(snapshot.val().email);
+    //             $("#editModal .edit_show_userName").val(snapshot.val().userName);
+    //             $("#editModal .edit_show_pass").val(snapshot.val().passWord);
+    //             $("#editModal .edit_show_status").val(snapshot.val().otp);
+    //             $(".edit_key").val(postKey);
+    //         }
+    //         else {
+    //             alert("no data found");
+    //         }
+    //     }))
+    //         .catch((error) => {
+    //             alert("loi roi" + error);
+    //         })
 
-    })
+    // })
 
     $(".save_edited_data_2").on("click", (event) => {
         event.preventDefault();

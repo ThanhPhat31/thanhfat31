@@ -123,8 +123,8 @@ $(document).ready(function () {
     $("#addModal .submit").on("click", () => {
         var lesson = $("#addModal .show_lesson").val();
         var type = $("#addModal .show_type").val();
-        var newword = $("#addModal .show_newword").val();
-        var mean = $("#addModal .show_mean").val();
+        var newword = $("#addModal .show_newword").val().replace(/\s{2,}/g, ' ').trim();
+        var mean = $("#addModal .show_mean").val().replace(/\s{2,}/g, ' ').trim();
         let regexWord = /^[ぁ-んァ-ン一-龥()\s]/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
 
@@ -140,7 +140,7 @@ $(document).ready(function () {
         }
         else {
             set(ref(db, `learndekiru/${lesson}/${type}/${newword}`), {
-                mean: mean
+                mean: mean.trim()
             })
                 .then(() => {
                     alert("Thanh cong");
@@ -178,8 +178,8 @@ $(document).ready(function () {
     })
     $(document).on("click", ".save_edited_data", (event) => {
         var lesson = $(".edit_show_lesson").val();
-        var newword = $(".edit_show_newword").val();
-        var meaning = $(".edit_show_mean").val();
+        var newword = $(".edit_show_newword").val().replace(/\s{2,}/g, ' ').trim();
+        var meaning = $(".edit_show_mean").val().replace(/\s{2,}/g, ' ').trim();
         //var show_phone = $(".edit_show_phone").val();
         //var reading = $(".edit_show_read").val();
         var edit_key = $(".edit_key").val();
