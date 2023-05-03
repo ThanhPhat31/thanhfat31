@@ -280,6 +280,7 @@ $(document).ready(function () {
                     remove(questionRef);
                     // Remove the row from the table
                     row.remove();
+                    alert('Delete success!');
                     window.location.reload();
                 });
                 actionCell.appendChild(deleteButton);
