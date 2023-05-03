@@ -125,7 +125,7 @@ $(document).ready(function () {
         var type = $("#addModal .show_type").val();
         var newword = $("#addModal .show_newword").val();
         var mean = $("#addModal .show_mean").val();
-        let regexWord = /^[ぁ-んァ-ン一-龥]/;
+        let regexWord = /^[ぁ-んァ-ン一-龥()\s]/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
 
 
@@ -183,7 +183,7 @@ $(document).ready(function () {
         //var show_phone = $(".edit_show_phone").val();
         //var reading = $(".edit_show_read").val();
         var edit_key = $(".edit_key").val();
-        let regexWord = /^[ぁ-んァ-ン一-龥]/;
+        let regexWord = /^[ぁ-んァ-ン一-龥()\s]/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
         // A post entry.
         const postData = {

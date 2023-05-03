@@ -277,7 +277,7 @@ $(document).ready(function () {
         var show_status = $(".edit_show_status").val();
         var edit_key = $(".edit_key").val();
         let nameregex = /^[a-zA-Z\s]+$/;
-        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook|fpt.edu)\.com$/;
         let usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
         let passregex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
         let dateregex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;

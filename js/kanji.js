@@ -132,7 +132,7 @@ $(document).ready(function () {
         var read = $("#addModal .show_read").val();
         let regexKanji = /^[一-龥]+$/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
-        let regexRead = /^[ぁ-んァ-ン]+$/;
+        let regexRead = /^[ぁ-んァ-ン/,\()\s]+$/;
 
 
         if (kanji.length == 0 || mean.length == 0 || read.length == 0) {
@@ -196,7 +196,7 @@ $(document).ready(function () {
         var edit_key = $(".edit_key").val();
         let regexKanji = /^[一-龥]+$/;
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
-        let regexRead = /^[ぁ-んァ-ン]+$/;
+        let regexRead = /^[ぁ-んァ-ン/,\()\s]+$/;
 
         // A post entry.
         const postData = {
