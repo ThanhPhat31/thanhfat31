@@ -353,6 +353,15 @@ $(document).ready(function () {
         console.log(questionId);
 
         if (question && answer && answerChoices.length && type && nameSelected) {
+            if (!answerChoices.includes(answer)) {
+                alert('Answer is not in Answer Choices!');
+                return;
+            }
+            let answerChoicesString = answerChoices.toString();
+            if (answerChoicesString.split(',').length > 4) {
+                alert('Invalid input: answerChoices should have at most 3 commas');
+                return;
+            }
             let questionRef = ref(db, 'questions/' + nameSelected);
             get(questionRef).then((snapshot) => {
                 let questionData2 = snapshot.val();
@@ -368,6 +377,7 @@ $(document).ready(function () {
                 }).then(() => {
                     alert('successfully create!');
                     $('#addModal').modal('hide');
+                    window.location.reload();
                 })
                     .catch((error) => {
                         alert('Error create: ', error);
@@ -381,8 +391,6 @@ $(document).ready(function () {
                     typequestion: type
                 })
             });
-
-            window.location.reload();
         } else {
             alert("Please fill out all required fields.");
         }
@@ -466,40 +474,49 @@ $(document).ready(function () {
         console.log(questionId);
         // Add the new question to the database
         if (question && answer && answerChoices.length && type) {
-        const db = getDatabase();
-        let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + session);
-        console.log(newQuestionRef);
+            if (!answerChoices.includes(answer)) {
+                alert('Answer is not in Answer Choices!');
+                return;
+            }
+            let answerChoicesString = answerChoices.toString();
+            if (answerChoicesString.split(',').length > 4) {
+                alert('Invalid input: answerChoices should have at most 3 commas');
+                return;
+            }
+            const db = getDatabase();
+            let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + session);
+            console.log(newQuestionRef);
 
-        update(newQuestionRef, {
-            question: question,
-            answer: answer,
-            answerchose: answerChoices,
-            typequestion: type
-        })
-            .then(() => {
-                alert('successfully updated!');
-                $('#editModal6').modal('hide');
-
+            update(newQuestionRef, {
+                question: question,
+                answer: answer,
+                answerchose: answerChoices,
+                typequestion: type
             })
-            .catch((error) => {
-                alert('Error updating: ', error);
-            });
+                .then(() => {
+                    alert('successfully updated!');
+                    $('#editModal6').modal('hide');
+                    window.location.reload();
 
-        console.log({
-            question: question,
-            answer: answer,
-            answerchose: answerChoices,
-            typequestion: type
-        })
+                })
+                .catch((error) => {
+                    alert('Error updating: ', error);
+                });
 
-        // // Close the modal
-        // let modal = document.getElementById('add-question-modal');
-        // let modalInstance = bootstrap.Modal.getInstance(modal);
-        // modalInstance.hide();
-        window.location.reload();
-    }else{
-        alert("Please fill out all required fields.");
-    }
+            console.log({
+                question: question,
+                answer: answer,
+                answerchose: answerChoices,
+                typequestion: type
+            })
+
+            // // Close the modal
+            // let modal = document.getElementById('add-question-modal');
+            // let modalInstance = bootstrap.Modal.getInstance(modal);
+            // modalInstance.hide();
+        } else {
+            alert("Please fill out all required fields.");
+        }
     })
 
     $(document).on("click", ".deleteButton", function () {
