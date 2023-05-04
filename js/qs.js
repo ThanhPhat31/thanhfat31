@@ -280,7 +280,6 @@ $(document).ready(function () {
                     remove(questionRef);
                     // Remove the row from the table
                     row.remove();
-                    alert('Delete success!');
                     window.location.reload();
                 });
                 actionCell.appendChild(deleteButton);
@@ -354,15 +353,6 @@ $(document).ready(function () {
         console.log(questionId);
 
         if (question && answer && answerChoices.length && type && nameSelected) {
-            if (!answerChoices.includes(answer)) {
-                alert('Answer is not in Answer Choices!');
-                return;
-            }
-            let answerChoicesString = answerChoices.toString();
-            if (answerChoicesString.split(',').length > 4) {
-                alert('Invalid input: answerChoices should have at most 3 commas');
-                return;
-            }
             let questionRef = ref(db, 'questions/' + nameSelected);
             get(questionRef).then((snapshot) => {
                 let questionData2 = snapshot.val();
@@ -378,7 +368,6 @@ $(document).ready(function () {
                 }).then(() => {
                     alert('successfully create!');
                     $('#addModal').modal('hide');
-                    window.location.reload();
                 })
                     .catch((error) => {
                         alert('Error create: ', error);
@@ -392,6 +381,8 @@ $(document).ready(function () {
                     typequestion: type
                 })
             });
+
+            window.location.reload();
         } else {
             alert("Please fill out all required fields.");
         }
@@ -408,7 +399,6 @@ $(document).ready(function () {
         let type = document.getElementById('type').value;
         let questionId = this.value;
         console.log(nameSelected);
-        
         if (question && answer && answerChoices.length && type && nameSelected) {
             // Add the new question to the database
             let newQuestionRef = push(ref(db, 'questions/' + nameSelected));
@@ -438,33 +428,33 @@ $(document).ready(function () {
 
 
 
-    // $(document).on("click", ".editButton", function () {
-    //     var postKey = $(this).parent().parent().data("id");
-    //     var postRef = ref(db, 'Users/' + postKey);
-    //     const dbRef = ref(db);
-    //     //console.log(postKey);
-    //     get(child(dbRef, "Users/" + postKey)).then((snapshot => {
-    //         if (snapshot.exists()) {
+    $(document).on("click", ".editButton", function () {
+        var postKey = $(this).parent().parent().data("id");
+        var postRef = ref(db, 'Users/' + postKey);
+        const dbRef = ref(db);
+        //console.log(postKey);
+        get(child(dbRef, "Users/" + postKey)).then((snapshot => {
+            if (snapshot.exists()) {
 
-    //             $("#editModal .edit_show_name").val(snapshot.val().fullName);
-    //             $("#editModal .edit_show_date").val(changedateformat1(snapshot.val().date));
-    //             $("#editModal .edit_show_gender").val(snapshot.val().gender);
-    //             $("#editModal .edit_show_phone").val(snapshot.val().phoneNo);
-    //             $("#editModal .edit_show_email").val(snapshot.val().email);
-    //             $("#editModal .edit_show_userName").val(snapshot.val().userName);
-    //             $("#editModal .edit_show_pass").val(snapshot.val().passWord);
-    //             $("#editModal .edit_show_status").val(snapshot.val().otp);
-    //             $(".edit_key").val(postKey);
-    //         }
-    //         else {
-    //             alert("no data found");
-    //         }
-    //     }))
-    //         .catch((error) => {
-    //             alert("loi roi" + error);
-    //         })
+                $("#editModal .edit_show_name").val(snapshot.val().fullName);
+                $("#editModal .edit_show_date").val(changedateformat1(snapshot.val().date));
+                $("#editModal .edit_show_gender").val(snapshot.val().gender);
+                $("#editModal .edit_show_phone").val(snapshot.val().phoneNo);
+                $("#editModal .edit_show_email").val(snapshot.val().email);
+                $("#editModal .edit_show_userName").val(snapshot.val().userName);
+                $("#editModal .edit_show_pass").val(snapshot.val().passWord);
+                $("#editModal .edit_show_status").val(snapshot.val().otp);
+                $(".edit_key").val(postKey);
+            }
+            else {
+                alert("no data found");
+            }
+        }))
+            .catch((error) => {
+                alert("loi roi" + error);
+            })
 
-    // })
+    })
 
     $(".save_edited_data_2").on("click", (event) => {
         event.preventDefault();
@@ -476,49 +466,40 @@ $(document).ready(function () {
         console.log(questionId);
         // Add the new question to the database
         if (question && answer && answerChoices.length && type) {
-            if (!answerChoices.includes(answer)) {
-                alert('Answer is not in Answer Choices!');
-                return;
-            }
-            let answerChoicesString = answerChoices.toString();
-            if (answerChoicesString.split(',').length > 4) {
-                alert('Invalid input: answerChoices should have at most 3 commas');
-                return;
-            }
-            const db = getDatabase();
-            let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + session);
-            console.log(newQuestionRef);
+        const db = getDatabase();
+        let newQuestionRef = ref(db, 'questions/' + nameSelected + "/" + session);
+        console.log(newQuestionRef);
 
-            update(newQuestionRef, {
-                question: question,
-                answer: answer,
-                answerchose: answerChoices,
-                typequestion: type
+        update(newQuestionRef, {
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        })
+            .then(() => {
+                alert('successfully updated!');
+                $('#editModal6').modal('hide');
+
             })
-                .then(() => {
-                    alert('successfully updated!');
-                    $('#editModal6').modal('hide');
-                    window.location.reload();
+            .catch((error) => {
+                alert('Error updating: ', error);
+            });
 
-                })
-                .catch((error) => {
-                    alert('Error updating: ', error);
-                });
+        console.log({
+            question: question,
+            answer: answer,
+            answerchose: answerChoices,
+            typequestion: type
+        })
 
-            console.log({
-                question: question,
-                answer: answer,
-                answerchose: answerChoices,
-                typequestion: type
-            })
-
-            // // Close the modal
-            // let modal = document.getElementById('add-question-modal');
-            // let modalInstance = bootstrap.Modal.getInstance(modal);
-            // modalInstance.hide();
-        } else {
-            alert("Please fill out all required fields.");
-        }
+        // // Close the modal
+        // let modal = document.getElementById('add-question-modal');
+        // let modalInstance = bootstrap.Modal.getInstance(modal);
+        // modalInstance.hide();
+        window.location.reload();
+    }else{
+        alert("Please fill out all required fields.");
+    }
     })
 
     $(document).on("click", ".deleteButton", function () {
