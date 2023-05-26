@@ -126,22 +126,22 @@ $(document).ready(function () {
         //location.reload();
     })
 
-    const lessonListRef1 = ref(db, 'learndekiru');
-    onValue(lessonListRef1, (snapshot) => {
-        const lessonlist1 = snapshot.val();
-        //console.log(snapshot.val());
-        show_lessonList1.innerHTML = "";
-        for (let lesson1 in lessonlist1) {
-            console.log(lessonlist1[lesson1]);
-            let tr =
-                `
-                <option data-id="${lesson1}">${lesson1}</option>
+    // const lessonListRef1 = ref(db, 'learndekiru');
+    // onValue(lessonListRef1, (snapshot) => {
+    //     const lessonlist1 = snapshot.val();
+    //     //console.log(snapshot.val());
+    //     show_lessonList1.innerHTML = "";
+    //     for (let lesson1 in lessonlist1) {
+    //         console.log(lessonlist1[lesson1]);
+    //         let tr =
+    //             `
+    //             <option data-id="${lesson1}">${lesson1}</option>
                 
-                `
-            dropdown.innerHTML += tr;
-        }
+    //             `
+    //         dropdown.innerHTML += tr;
+    //     }
 
-    });
+    // });
     $("#addModal .submit").on("click", () => {
         var lesson = $("#addModal .show_lesson").val();
         var type = $("#addModal .show_type").val();
