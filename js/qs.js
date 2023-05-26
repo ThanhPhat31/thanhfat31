@@ -458,7 +458,7 @@ $(document).ready(function () {
 
     $(".save_edited_data_2").on("click", (event) => {
         event.preventDefault();
-        let question = document.getElementById('question-1').value;
+        let question = document.getElementById('question-1').value.replace(/ /g,'');
         let answer = document.getElementById('answer-2').value;
         let answerChoices = document.getElementById('answer-choices-3').value.split(',');
         let type = document.getElementById('type-4').value;
