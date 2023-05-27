@@ -143,7 +143,7 @@ $(document).ready(function () {
                 mean: mean.trim()
             })
                 .then(() => {
-                    alert("Thanh cong");
+                    alert("Thêm từ thành công !");
                     //location.reload();
                 })
                 .catch((error) => {
