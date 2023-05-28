@@ -187,11 +187,11 @@ $(document).ready(function () {
         let regexMean = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
         // A post entry.
         const postData = {
-            "mean": meaning,
+            "mean": meaning
         };
 
-        if (newword.length == 0 || meaning.length == 0 || lesson.length == 0) {
-            alert("Không được để trường nào trống"); return;
+        if (newword.length == 0 || meaning.length == 0) {
+            alert("Không được để trường nào trống"); return false;
         } else if (!regexWord.test(newword)) {
             alert("Từ mới chỉ nên có tiếng nhật");
             return false;
