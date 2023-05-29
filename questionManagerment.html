@@ -564,14 +564,16 @@
 							let deleteButton = document.createElement('button');
 							deleteButton.innerText = 'Delete';
 							deleteButton.addEventListener('click', () => {
-								// Delete the question from the database
-								session = Object.keys(questionData)[Array.from(tbody.children).indexOf(row)];
-								let questionRef = ref(db, 'questions/' + nameSelected + "/" + session);
-								remove(questionRef);
-								// Remove the row from the table
-								row.remove();
-								alert('Delete success!');
-								window.location.reload();
+								var confirmation = confirm("Do you want to delete this object?");
+								if(confirmation) {
+									// Delete the question from the database
+									session = Object.keys(questionData)[Array.from(tbody.children).indexOf(row)];
+									let questionRef = ref(db, 'questions/' + nameSelected + "/" + session);
+									remove(questionRef);
+									// Remove the row from the table
+									row.remove();
+									window.location.reload();
+								}
 							});
 							actionCell.appendChild(deleteButton);
 							row.appendChild(actionCell);
@@ -642,7 +644,8 @@
 					let answerChoices = document.getElementById('answer-choices').value.split(',').map((e) => e.replace(/\s/g, ''));
 					let type = document.getElementById('type').value.replace(/ /g,'');
 					let questionId = this.value;
-					console.log(questionId);
+					// console.log(questionId);
+					// console.log(answerChoices);
 
 					if (question && answer && answerChoices.length && type && nameSelected) {
 						if (type === '1') {
@@ -650,6 +653,21 @@
 								alert('Answer is not in Answer Choices!');
 								return;
 							}
+							if(answerChoices.length > 4) {
+								alert('Invalid length: Answer choices should have at most 3 commas');
+								return;
+							}
+
+							const isAllUniqueItems = answerChoices.every((value, index, arr) => {
+								return arr.indexOf(value) === index;
+							});
+
+							if(isAllUniqueItems != true) {
+								alert('Invalid input: Duplicate answer choice');
+								return;
+							};
+
+
 						} else {
 							let answerChoicesString = answerChoices.toString();
 							if (answerChoicesString.split(',').length > 4) {
@@ -669,6 +687,15 @@
 								alert('Your answer is not correct 1')
 								return;
 							}
+
+							const isAllUniqueItems = answerChoices.every((value, index, arr) => {
+								return arr.indexOf(value) === index;
+							});
+
+							if(isAllUniqueItems != true) {
+								alert('Invalid input: Duplicate answer choice');
+								return;
+							};
 						}
 
 
@@ -783,17 +810,31 @@
 					let type = document.getElementById('type-4').value.replace(/ /g,'');
 					let questionId = this.value;
 					// Add the new question to the database
-					if (question && answer && answerChoices.length && type) {
-
+					if (question && answer && answerChoices.length && type && nameSelected) {
 						if (type === '1') {
 							if (!answerChoices.includes(answer.trim())) {
 								alert('Answer is not in Answer Choices!');
 								return;
 							}
+							if(answerChoices.length > 4) {
+								alert('Invalid length: Answer choices should have at most 3 commas');
+								return;
+							}
+
+							const isAllUniqueItems = answerChoices.every((value, index, arr) => {
+								return arr.indexOf(value) === index;
+							});
+
+							if(isAllUniqueItems != true) {
+								alert('Invalid input: Duplicate answer choice');
+								return;
+							};
+
+
 						} else {
 							let answerChoicesString = answerChoices.toString();
 							if (answerChoicesString.split(',').length > 4) {
-								alert('Invalid input: answerChoices should have at most 3 commas');
+								alert('Invalid input: Answer choices should have at most 3 commas');
 								return;
 							}
 
@@ -809,6 +850,15 @@
 								alert('Your answer is not correct 1')
 								return;
 							}
+
+							const isAllUniqueItems = answerChoices.every((value, index, arr) => {
+								return arr.indexOf(value) === index;
+							});
+
+							if(isAllUniqueItems != true) {
+								alert('Invalid input: Duplicate answer choice');
+								return;
+							};
 						}
 
 						const db = getDatabase();
@@ -849,8 +899,11 @@
 
 				$(document).on("click", ".deleteButton", function () {
 					var delete_key = $(this).parent().parent().data("id");
-					remove(child(dbRef, "Users/" + delete_key));
-					$(this).parent().parent().hide();
+					var confirmation = confirm("Are you sure want to delete ?");
+					if(confirmation) {
+						remove(child(dbRef, "Users/" + delete_key));
+						$(this).parent().parent().hide();
+					}
 				})
 			})
 

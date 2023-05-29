@@ -164,7 +164,7 @@ $(document).ready(function () {
                 input[text.name] = text.value
             } else {
                 switch (text.name) {
-                    case 'firt':
+                    case 'first':
                         input.content = Object.assign({}, input.content, { first: text.value })
                         break;
                     case 'second':
