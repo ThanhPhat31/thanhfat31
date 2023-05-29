@@ -153,7 +153,7 @@ $(document).ready(function () {
 
         for (let i = 0; i < texts.length; i++) {
             if (!texts[i].value) {
-                alert(`Không để trường ${texts[i].name} nào trống`);
+                alert(`Please fill out all required fields.`);
                 return;
             }
         }
@@ -164,7 +164,7 @@ $(document).ready(function () {
                 input[text.name] = text.value
             } else {
                 switch (text.name) {
-                    case 'first':
+                    case 'firt':
                         input.content = Object.assign({}, input.content, { first: text.value })
                         break;
                     case 'second':
@@ -184,7 +184,7 @@ $(document).ready(function () {
 
         set(ref(db, `learndekiru/${lesson}/nguphap/${randomId}`), input)
             .then(() => {
-                alert("Thanh cong");
+                alert("Add new grammar successfully !");
                 //location.reload();
             })
             .catch((error) => {
@@ -211,7 +211,7 @@ $(document).ready(function () {
 
         for (let i = 0; i < texts.length; i++) {
             if (!texts[i].value) {
-                alert(`Không để trường ${texts[i].name} nào trống`);
+                alert(`Please fill out all required fields.`);
                 return;
             }
         }
@@ -242,7 +242,7 @@ $(document).ready(function () {
 
         set(ref(db, `learndekiru/${lesson}/nguphap/${editID}`), input)
             .then(() => {
-                alert("Thanh cong");
+                alert("Edit success !");
                 location.reload();
             })
             .catch((error) => {
@@ -327,7 +327,7 @@ $(document).ready(function () {
     })
 
     $(document).on("click", ".deleteButton", function () {
-        const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
+        const result = confirm("Do you want to delete this object?");
         if (result) {
             // Nếu người dùng chọn OK, xóa đối tượng
             var delete_key = $(this).parent().parent().data("id");

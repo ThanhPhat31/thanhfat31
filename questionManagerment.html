@@ -637,7 +637,7 @@
 				// });
 				$("#addModal .submit").on("click", () => {
 
-					let question = document.getElementById('question').value.replace(/ /g,'');
+					let question = document.getElementById('question').value;
 					let answer = document.getElementById('answer').value.replace(/ /g,'');
 					let answerChoices = document.getElementById('answer-choices').value.split(',').map((e) => e.replace(/\s/g, ''));
 					let type = document.getElementById('type').value.replace(/ /g,'');
@@ -685,7 +685,7 @@
 								answerchose: answerChoices,
 								typequestion: type
 							}).then(() => {
-								alert('successfully create!');
+								alert('Add a new question successfully !');
 								$('#addModal').modal('hide');
 								window.location.reload();
 							})
@@ -777,7 +777,7 @@
 
 				$(".save_edited_data_2").on("click", (event) => {
 					event.preventDefault();
-					let question = document.getElementById('question-1').value.replace(/ /g,'');
+					let question = document.getElementById('question-1').value;
 					let answer = document.getElementById('answer-2').value.replace(/ /g,'');
 					let answerChoices = document.getElementById('answer-choices-3').value.split(',').map((e) => e.replace(/\s/g, ''))
 					let type = document.getElementById('type-4').value.replace(/ /g,'');
@@ -822,7 +822,7 @@
 							typequestion: type
 						})
 								.then(() => {
-									alert('successfully updated!');
+									alert('Edit success !');
 									$('#editModal6').modal('hide');
 									window.location.reload();
 
