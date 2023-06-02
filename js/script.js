@@ -114,7 +114,7 @@ $(document).ready(function () {
                     <td>${Users[user].phoneNo}</td>
                     <td>${Users[user].email}</td>
                     <td>${Users[user].userName}</td>
-                    <td>${Users[user].passWord}</td>
+                   
                     <td>${Users[user].otp}</td>
                     <td>
                         <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>

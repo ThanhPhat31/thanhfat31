@@ -39,10 +39,10 @@ document.getElementById("logOutLink").addEventListener('click', (e) => {
 
 
 let tableBody = document.querySelector("tbody");
-let dropdown = document.querySelector("select");
+var dropdown = document.querySelector("#show_lessonList");
+var dropdown1 = document.querySelector("#show_lessonList1");
 var show_lessonList = document.getElementById("show_lessonList");
-var show_lessonList1 = document.getElementById("show_lesson");
-
+var show_lessonList1 = document.getElementById("show_lessonList1");
 function getSeclectValue() {
     const db = getDatabase();
     const kanjiRef = ref(db, `learndekiru/bai1/kanji`);
@@ -82,6 +82,7 @@ $(document).ready(function () {
         const lessonlist = snapshot.val();
         //console.log(snapshot.val());
         show_lessonList.innerHTML = "";
+        show_lessonList1.innerHTML = "";
         for (let lesson in lessonlist) {
             //console.log(lessonlist[lesson]);
             let tr =
@@ -90,6 +91,7 @@ $(document).ready(function () {
                 
                 `
             dropdown.innerHTML += tr;
+            dropdown1.innerHTML += tr;
         }
 
     });
@@ -129,16 +131,17 @@ $(document).ready(function () {
     // const lessonListRef1 = ref(db, 'learndekiru');
     // onValue(lessonListRef1, (snapshot) => {
     //     const lessonlist1 = snapshot.val();
-    //     //console.log(snapshot.val());
+    //    // console.log(snapshot.val());
     //     show_lessonList1.innerHTML = "";
+    //     //console.log(lessonlist1);
     //     for (let lesson1 in lessonlist1) {
-    //         console.log(lessonlist1[lesson1]);
+    //         //console.log(lessonlist1[lesson1]);
     //         let tr =
     //             `
     //             <option data-id="${lesson1}">${lesson1}</option>
                 
     //             `
-    //         dropdown.innerHTML += tr;
+    //         dropdown1.innerHTML += tr;
     //     }
 
     // });
