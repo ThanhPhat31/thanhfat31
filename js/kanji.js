@@ -159,7 +159,7 @@ $(document).ready(function () {
         if (kanji.length == 0 || mean.length == 0 || read.length == 0) {
             alert("Không để trường nào trống"); return;
         } else if (!regexKanji.test(kanji)) {
-            alert("Hãy nhập hán tự!");
+            alert("Input kanji in 'Kanji' and 'Read' field");
             return false;
         } else if (!regexMean.test(mean)) {
             alert("Nghĩa chỉ nên có chữ cái tiếng việt");
