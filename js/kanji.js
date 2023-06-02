@@ -146,7 +146,7 @@ $(document).ready(function () {
 
     // });
     $("#addModal .submit").on("click", () => {
-        var lesson = $("#addModal .show_lesson").val();
+        var lesson = $("#addModal .show_lessonList1").val();
         var type = $("#addModal .show_type").val();
         var kanji = $("#addModal .show_kanji").val().replace(/\s{2,}/g, ' ').trim();
         var mean = $("#addModal .show_mean").val().replace(/\s{2,}/g, ' ').trim();

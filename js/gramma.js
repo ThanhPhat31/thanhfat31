@@ -39,8 +39,10 @@ document.getElementById("logOutLink").addEventListener('click', (e) => {
 
 
 let tableBody = document.querySelector("tbody");
-let dropdown = document.querySelector("select");
+let dropdown = document.querySelector("#show_lessonList");
+let dropdown1 = document.querySelector("#show_lessonList1");
 var show_lessonList = document.getElementById("show_lessonList");
+var show_lessonList1 = document.getElementById("show_lessonList1");
 
 function getSeclectValue() {
     const db = getDatabase();
@@ -88,6 +90,7 @@ $(document).ready(function () {
         const lessonlist = snapshot.val();
         //console.log(snapshot.val());
         show_lessonList.innerHTML = "";
+        show_lessonList1.innerHTML = "";
         for (let lesson in lessonlist) {
             console.log(lesson)
             //console.log(lessonlist[lesson]);
@@ -97,6 +100,7 @@ $(document).ready(function () {
                 
                 `
             dropdown.innerHTML += tr;
+            dropdown1.innerHTML += tr;
         }
 
     });
@@ -141,7 +145,7 @@ $(document).ready(function () {
     $("#addModal .submit").on("click", () => {
 
         // leason ID
-        var lesson = $("#addModal .show_lesson").val();
+        var lesson = $("#addModal .show_lessonList1").val();
 
         const texts = []
         document.querySelectorAll("#addModal input[type=text]").forEach((input) => {

@@ -44,6 +44,75 @@ let dropdown1 = document.querySelector("#show_lessonList1");
 var show_lessonList = document.getElementById("show_lessonList");
 var show_lessonList1 = document.getElementById("show_lessonList1");
 
+
+
+const searchBtn = document.getElementById("searchBtn");
+const searchBar = document.getElementById("myInput");
+
+
+
+searchBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        let filter = document.getElementById("myInput").value.toUpperCase().replace(/\s+/g,' ').trim();
+        let myTable = document.getElementById('tbody');
+        let tr = myTable.getElementsByTagName('tr');
+        if (filter !== "") {
+            for (var i = 0; i < tr.length; i++) {
+                let td1 = tr[i].getElementsByTagName('td')[0];
+                let td2 = tr[i].getElementsByTagName('td')[1];
+                
+                if (td1 && td2) {
+                    let textValue1 = td1.textContent || td1.innerHTML;
+                    let textValue2 = td2.textContent || td2.innerHTML;
+                    
+                    if (textValue1.toUpperCase().indexOf(filter) > -1 || textValue2.toUpperCase().indexOf(filter) > -1 ) {
+                        tr[i].style.display = "";
+                        //tr[i].style.display = "";
+                        
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        } else {
+            // Gọi hàm tải lại bảng hoặc hiển thị tất cả các hàng tại đây
+            // Ví dụ: loadTable();
+            // Hoặc: showAllRows();
+            getSeclectValue();
+        }
+    }
+});
+searchBtn.addEventListener("click", (e) => {
+    let filter = document.getElementById("myInput").value.toUpperCase().replace(/\s+/g,' ').rim();
+    let myTable = document.getElementById('tbody');
+    let tr = myTable.getElementsByTagName('tr');
+  
+    if (filter !== "") {
+        for (var i = 0; i < tr.length; i++) {
+            let td1 = tr[i].getElementsByTagName('td')[0];
+            let td2 = tr[i].getElementsByTagName('td')[1];
+            
+            if (td1 && td2) {
+                let textValue1 = td1.textContent || td1.innerHTML;
+                let textValue2 = td2.textContent || td2.innerHTML;
+                
+                if (textValue1.toUpperCase().indexOf(filter) > -1 || textValue2.toUpperCase().indexOf(filter) > -1 ) {
+                    tr[i].style.display = "";
+                    //tr[i].style.display = "";
+                    
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    } else {
+        // Gọi hàm tải lại bảng hoặc hiển thị tất cả các hàng tại đây
+        // Ví dụ: loadTable();
+        // Hoặc: showAllRows();
+        getSeclectValue();
+    }
+  });
+
 function getSeclectValue() {
     const db = getDatabase();
     const kanjiRef = ref(db, `learndekiru/bai1/newword`);
@@ -72,6 +141,7 @@ function getSeclectValue() {
     });
     //location.reload();
 }
+
 $(document).ready(function () {
     const db = getDatabase();
 
@@ -125,7 +195,7 @@ $(document).ready(function () {
         //location.reload();
     })
     $("#addModal .submit").on("click", () => {
-        var lesson = $("#addModal .show_lesson").val();
+        var lesson = $("#addModal .show_lessonList1").val();
         var type = $("#addModal .show_type").val();
         var newword = $("#addModal .show_newword").val().replace(/\s{2,}/g, ' ').trim();
         var mean = $("#addModal .show_mean").val().replace(/\s{2,}/g, ' ').trim();
