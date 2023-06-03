@@ -22,7 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const database = getDatabase(app);
+const database = getDatabase();
 
 document.getElementById("logOutLink").addEventListener('click', (e) => {
     signOut(auth).then(() => {
@@ -145,6 +145,35 @@ $(document).ready(function () {
     //     }
 
     // });
+    $("#addLessonModal .submit").on("click", () => {
+        var lesson = $("#addLessonModal .show_lesson1").val();
+        var kanji = $("#addLessonModal .show_kanji1").val();
+        var newword = $("#addLessonModal .show_newword1").val();
+        var nguphap = $("#addLessonModal .show_nguphap").val();
+        if (lesson.length == 0) {
+            alert("Please fill out all required fields.");
+            return;
+        } else {
+            var newLesson = {
+                kanji: kanji,
+                newword: newword,
+                nguphap: nguphap
+            };
+    
+            set(ref(db, `learndekiru/${lesson}`), newLesson)
+                .then(() => {
+                    alert("Add new lesson successfully!");
+                    //location.reload();
+                })
+                .catch((error) => {
+                    alert("Error: " + error);
+                });
+    
+            $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
+        
+    })
+    
     $("#addModal .submit").on("click", () => {
         var lesson = $("#addModal .show_lessonList1").val();
         var type = $("#addModal .show_type").val();
@@ -274,6 +303,22 @@ $(document).ready(function () {
 
 
 
+
+// addLessonBtn.addEventListener("click", (e) =>{
+//     set(ref(db, `learndekiru/${lesson}/${type}/${kanji}`), {
+//         mean: mean,
+//         read: read
+//     })
+//         .then(() => {
+//             alert("Add new lesson successfully !");
+//             //location.reload();
+//         })
+//         .catch((error) => {
+//             alert("Error: " + error);
+//         });
+
+//     $("[data-dismiss=modal]").trigger({ type: "click" });
+// })
 
 
 
