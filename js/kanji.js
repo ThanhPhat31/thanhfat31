@@ -145,18 +145,18 @@ $(document).ready(function () {
     //     }
 
     // });
-    $("#addLessonModal .submit").on("click", () => {
-        var lesson = $("#addLessonModal .show_lesson1").val();
-        var kanji = $("#addLessonModal .show_kanji1").val();
-        var newword = $("#addLessonModal .show_newword1").val();
-        var nguphap = $("#addLessonModal .show_nguphap").val();
+    // $("#addLessonModal .submit").on("click", () => {
+    //     var lesson = $("#addLessonModal .show_lesson1").val();
+    //     var kanji = $("#addLessonModal .show_kanji1").val();
+    //     var newword = $("#addLessonModal .show_newword1").val();
+    //     var nguphap = $("#addLessonModal .show_nguphap").val();
 
-        if (lesson.length == 0) {
-            alert("Please fill out all required fields.");
-            return;
-        }
+    //     if (lesson.length == 0) {
+    //         alert("Please fill out all required fields.");
+    //         return;
+    //     }
 
-        // Truy vấn cơ sở dữ liệu để kiểm tra lesson
+    //     // Truy vấn cơ sở dữ liệu để kiểm tra lesson
     //     var refQuestion = db.ref(`questions/${lesson}`);
     //     var refLearnDekiru = db.ref(`learndekiru/${lesson}`);
 
@@ -201,7 +201,7 @@ $(document).ready(function () {
     //         .catch((error) => {
     //             alert("Error: " + error);
     //         });
-    // });
+    // })
 
     $("#addLessonModal .submit").on("click", () => {
         var lesson = $("#addLessonModal .show_lesson1").val();
