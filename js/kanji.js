@@ -139,7 +139,7 @@ $(document).ready(function () {
     //         let tr =
     //             `
     //             <option data-id="${lesson1}">${lesson1}</option>
-                
+
     //             `
     //         dropdown1.innerHTML += tr;
     //     }
@@ -154,24 +154,33 @@ $(document).ready(function () {
             alert("Please fill out all required fields.");
             return;
         } else {
-            var newLesson = {
+            var lessonData  = {
                 kanji: kanji,
                 newword: newword,
                 nguphap: nguphap
             };
-    
-            set(ref(db, `learndekiru/${lesson}`), newLesson)
+
+            var path1 = `questions/${lesson}`;
+            var path2 = `learndekiru/${lesson}`;
+
+            var promises = [
+                set(ref(db, path1), lessonData),
+                set(ref(db, path2), lessonData)
+            ];
+
+            Promise.all(promises)
                 .then(() => {
+                   // alert("Add new lesson successfully to both 'questions' and 'learndekiru' branches!");
                     alert("Add new lesson successfully!");
                     //location.reload();
                 })
                 .catch((error) => {
                     alert("Error: " + error);
                 });
-    
+
             $("[data-dismiss=modal]").trigger({ type: "click" });
         }
-        
+
     })
     
     $("#addModal .submit").on("click", () => {
@@ -294,7 +303,7 @@ $(document).ready(function () {
                 .catch((error) => {
                     console.error("Xóa đối tượng thất bại: ", error);
                 });
-        }else{
+        } else {
             console.log("Đã hủy xóa dữ liệu");
         }
         //$(this).parent().parent().hide();
