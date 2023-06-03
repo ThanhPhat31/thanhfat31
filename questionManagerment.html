@@ -146,7 +146,6 @@
 								data-target="#addModal2">Add question Type 3</button> -->
 							<select class="form-select" id="question-list" aria-label="Select a
 								question">
-								<option value="">Select lesson questions</option>
 							</select>
 							<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModalques" >Add lesson</button> -->
 							<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add question</button> -->
@@ -345,7 +344,7 @@
 					console.log(questions);
 					// Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
 					let selectBox = document.getElementById('question-list');
-					selectBox.innerHTML = '<option value="">Select lesson questions</option>';
+					// selectBox.innerHTML = '<option value="">Select lesson questions</option>';
 					selectBox.addEventListener('change', displayQuestion);
 
 					const keys = Object.keys(questions);
@@ -364,9 +363,9 @@
 					console.log(questions);
 					// Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
 					let selectBox = document.getElementById('question-list-1');
-					selectBox.innerHTML = '<option value="">Select lesson questions</option>';
+					// selectBox.innerHTML = '<option value="">Select lesson questions</option>';
 					selectBox.addEventListener('change', displayQuestion1);
-
+					
 					const keys = Object.keys(questions);
 					keys.forEach(key => {
 						const option = document.createElement('option');
@@ -383,7 +382,7 @@
 					console.log(questions);
 					// Lặp qua tất cả các document và thêm giá trị của trường 'title' vào select box
 					let selectBox = document.getElementById('question-list-2');
-					selectBox.innerHTML = '<option value="">Select lesson questions</option>';
+					// selectBox.innerHTML = '<option value="">Select lesson questions</option>';
 					selectBox.addEventListener('change', displayQuestion1);
 
 					const keys = Object.keys(questions);
@@ -395,8 +394,6 @@
 					});
 
 				});
-
-
 
 
 				console.log(questionRef);
@@ -501,8 +498,10 @@
 
 					get(questionRef).then((snapshot) => {
 						let questionData = snapshot.val();
+
 						console.log(questionData);
 
+						// if (typeof questionData !== 'object' ) return;
 						const keys = Object.keys(questionData);
 						let questionContainer = document.getElementById('question-container');
 						questionContainer.innerHTML = '';
@@ -534,6 +533,7 @@
 						thead.appendChild(headerRow);
 
 						keys.forEach(key => {
+							if (typeof questionData[key] !== 'object' ) return;
 							console.log(key);
 							// Create the table row
 							let row = document.createElement('tr');
