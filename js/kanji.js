@@ -150,27 +150,88 @@ $(document).ready(function () {
         var kanji = $("#addLessonModal .show_kanji1").val();
         var newword = $("#addLessonModal .show_newword1").val();
         var nguphap = $("#addLessonModal .show_nguphap").val();
+
+        if (lesson.length == 0) {
+            alert("Please fill out all required fields.");
+            return;
+        }
+
+        // Truy vấn cơ sở dữ liệu để kiểm tra lesson
+    //     var refQuestion = db.ref(`questions/${lesson}`);
+    //     var refLearnDekiru = db.ref(`learndekiru/${lesson}`);
+
+    //     Promise.all([
+    //         refQuestion.once("value"),
+    //         refLearnDekiru.once("value")
+    //     ])
+    //         .then((snapshots) => {
+    //             var questionSnapshot = snapshots[0];
+    //             var learnDekiruSnapshot = snapshots[1];
+
+    //             // Kiểm tra giá trị lesson đã tồn tại trong cả hai nhánh
+    //             if (questionSnapshot.exists() || learnDekiruSnapshot.exists()) {
+    //                 alert("Lesson already exists.");
+    //             } else {
+    //                 // Thêm dữ liệu vào cả hai nhánh
+    //                 var lessonDataQuestion = {
+    //                     question: kanji
+    //                 };
+    //                 var lessonDataLearnDekiru = {
+    //                     kanji: kanji,
+    //                     newword: newword,
+    //                     nguphap: nguphap
+    //                 };
+
+    //                 var promises = [
+    //                     set(refQuestion, lessonDataQuestion),
+    //                     set(refLearnDekiru, lessonDataLearnDekiru)
+    //                 ];
+
+    //                 Promise.all(promises)
+    //                     .then(() => {
+    //                         alert("Add new lesson successfully!");
+    //                     })
+    //                     .catch((error) => {
+    //                         alert("Error: " + error);
+    //                     });
+
+    //                 $("[data-dismiss=modal]").trigger({ type: "click" });
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             alert("Error: " + error);
+    //         });
+    // });
+
+    $("#addLessonModal .submit").on("click", () => {
+        var lesson = $("#addLessonModal .show_lesson1").val();
+        var kanji = $("#addLessonModal .show_kanji1").val();
+        var newword = $("#addLessonModal .show_newword1").val();
+        var nguphap = $("#addLessonModal .show_nguphap").val();
         if (lesson.length == 0) {
             alert("Please fill out all required fields.");
             return;
         } else {
-            var lessonData  = {
+            var lessonDataQuestion = {
+                question: kanji
+            };
+            var lessonDataLearnDekiru = {
                 kanji: kanji,
                 newword: newword,
                 nguphap: nguphap
             };
 
-            var path1 = `questions/${lesson}`;
-            var path2 = `learndekiru/${lesson}`;
+            var pathQuestion = `questions/${lesson}`;
+            var pathLearnDekiru = `learndekiru/${lesson}`;
 
             var promises = [
-                set(ref(db, path1), lessonData),
-                set(ref(db, path2), lessonData)
+                set(ref(db, pathQuestion), lessonDataQuestion),
+                set(ref(db, pathLearnDekiru), lessonDataLearnDekiru)
             ];
 
             Promise.all(promises)
                 .then(() => {
-                   // alert("Add new lesson successfully to both 'questions' and 'learndekiru' branches!");
+                    // alert("Add new lesson successfully to both 'questions' and 'learndekiru' branches!");
                     alert("Add new lesson successfully!");
                     //location.reload();
                 })
@@ -182,7 +243,7 @@ $(document).ready(function () {
         }
 
     })
-    
+
     $("#addModal .submit").on("click", () => {
         var lesson = $("#addModal .show_lessonList1").val();
         var type = $("#addModal .show_type").val();
