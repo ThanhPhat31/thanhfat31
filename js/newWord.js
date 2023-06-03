@@ -115,7 +115,7 @@ searchBtn.addEventListener("click", (e) => {
 
 function getSeclectValue() {
     const db = getDatabase();
-    const kanjiRef = ref(db, `learndekiru/bai1/newword`);
+    const kanjiRef = ref(db, `learndekiru/Bài 1/newword`);
     onValue(kanjiRef, (snapshot) => {
         const newword = snapshot.val();
         //console.log(snapshot.val());

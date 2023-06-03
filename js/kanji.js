@@ -45,7 +45,7 @@ var show_lessonList = document.getElementById("show_lessonList");
 var show_lessonList1 = document.getElementById("show_lessonList1");
 function getSeclectValue() {
     const db = getDatabase();
-    const kanjiRef = ref(db, `learndekiru/bai1/kanji`);
+    const kanjiRef = ref(db, `learndekiru/Bài 1/kanji`);
     onValue(kanjiRef, (snapshot) => {
         const kanji = snapshot.val();
         //console.log(snapshot.val());
