@@ -104,6 +104,7 @@ $(document).ready(function () {
         tableBody.innerHTML = "";
         for (let user in Users) {
             // console.log(snapshot.key);
+            let status = Users[user].status === "1" ? "Active" : "Inactive"; // Biểu thức điều kiện để chuyển đổi giá trị "1" thành "active"
             let tr =
                 `<tr data-id="${user}">
                     <td>
@@ -114,8 +115,9 @@ $(document).ready(function () {
                     <td>${Users[user].phoneNo}</td>
                     <td>${Users[user].email}</td>
                     <td>${Users[user].userName}</td>
-                   
-                    <td>${Users[user].otp}</td>
+                    
+                    <td>${Users[user].roles}</td>
+                    <td>${status}</td>
                     <td>
                         <button type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark editButton" >Edit</button>
                         
@@ -252,8 +254,10 @@ $(document).ready(function () {
                 $("#editModal .edit_show_phone").val(snapshot.val().phoneNo);
                 $("#editModal .edit_show_email").val(snapshot.val().email);
                 $("#editModal .edit_show_userName").val(snapshot.val().userName);
+                $("#editModal .edit_show_role").val(snapshot.val().roles);
+                $("#editModal .edit_show_status").val(snapshot.val().status);
                 $("#editModal .edit_show_pass").val(snapshot.val().passWord);
-                $("#editModal .edit_show_status").val(snapshot.val().otp);
+                $("#editModal .edit_show_otp").val(snapshot.val().otp);
                 $(".edit_key").val(postKey);
             }
             else {
@@ -274,6 +278,8 @@ $(document).ready(function () {
         var show_username = $(".edit_show_userName").val();
         var show_pass = $(".edit_show_pass").val();
         var show_status = $(".edit_show_status").val();
+        var show_role = $(".edit_show_role").val();
+        var show_otp = $(".edit_show_otp").val();
         var edit_key = $(".edit_key").val();
         let nameregex = /[\u00C0-\u1EF9a-zA-Z\s\p{P}]+/;
         let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook|fpt.edu)\.com$/;
@@ -290,7 +296,9 @@ $(document).ready(function () {
             "email": show_email,
             "userName": show_username,
             "passWord": show_pass,
-            "otp": show_status
+            "otp": show_otp,
+            "roles": show_role,
+            "status": show_status
         };
         // Get a key for a new Post.
         //const newPostKey = push(child(ref(db), 'Users')).key;
@@ -298,7 +306,7 @@ $(document).ready(function () {
         // Write the new post's data simultaneously in the posts list and the user's post list.
         
         //updates['/User-posts/' + edit_key] = postData;
-        if (edit_name.length == 0 || show_date.length == 0 || show_gender.length == 0 || show_phone.length == 0 || show_email.length == 0 || show_username.length == 0 || show_pass.length == 0 || show_status.length == 0) {
+        if (edit_name.length == 0 || show_date.length == 0 || show_gender.length == 0 || show_phone.length == 0 || show_email.length == 0 || show_username.length == 0) {
             alert("You can not leave any fields emty!"); return;
         }
         else if (!nameregex.test(edit_name)) {
@@ -321,13 +329,12 @@ $(document).ready(function () {
             alert("Username is 8-20 characters long Example: vanAnh123");
             return false;
         }
-        else if (!passregex.test(show_pass)) {
-            alert("Invalid password,one character,one uppercasse Example: LuanptA123");
-        }
+        
         else {
             const updates = {};
             updates['/Users/' + edit_key] = postData;
             update(ref(db), updates);
+            alert("Successfully !");
             $("[data-dismiss=modal]").trigger({type : "click"});
          //window.location.reload();
         }

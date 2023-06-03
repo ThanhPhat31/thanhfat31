@@ -83,7 +83,7 @@ searchBar.addEventListener("keydown", (e) => {
     }
 });
 searchBtn.addEventListener("click", (e) => {
-    let filter = document.getElementById("myInput").value.toUpperCase().replace(/\s+/g,' ').rim();
+    let filter = document.getElementById("myInput").value.toUpperCase().replace(/\s+/g,' ').trim();
     let myTable = document.getElementById('tbody');
     let tr = myTable.getElementsByTagName('tr');
   
@@ -204,12 +204,12 @@ $(document).ready(function () {
 
 
         if (newword.length == 0 || mean.length == 0) {
-            alert("Không được để trường nào trống"); return;
+            alert("Please fill out all required fields."); return;
         } else if (!regexWord.test(newword)) {
-            alert("Từ mới chỉ nên có tiếng nhật");
+            alert("'New word' field just contain Japanese");
             return false;
         } else if (!regexMean.test(mean)) {
-            alert("Nghĩa chỉ nên có tiếng việt");
+            alert("'Mean' field just contain Vietnamese");
             return false;
         }
         else {
@@ -217,7 +217,7 @@ $(document).ready(function () {
                 mean: mean.trim()
             })
                 .then(() => {
-                    alert("Thêm từ thành công !");
+                    alert("Add new word successfully !");
                     //location.reload();
                 })
                 .catch((error) => {
@@ -265,12 +265,12 @@ $(document).ready(function () {
         };
 
         if (newword.length == 0 || meaning.length == 0) {
-            alert("Không được để trường nào trống"); return false;
+            alert("Please fill out all required fields."); return;
         } else if (!regexWord.test(newword)) {
-            alert("Từ mới chỉ nên có tiếng nhật");
+            alert("'New word' field just contain Japanese");
             return false;
         } else if (!regexMean.test(meaning)) {
-            alert("Nghĩa chỉ nên có tiếng việt");
+            alert("'Mean' field just contain Vietnamese");
             return false;
         }
         else {
@@ -278,7 +278,7 @@ $(document).ready(function () {
             updates[`/learndekiru/${show_lessonList.value}/newword/` + edit_key] = postData;
             //updates['/User-posts/' + edit_key] = postData;
             update(ref(db), updates);
-            alert("Thanh cong");
+            alert("Successfully !");
             $("[data-dismiss=modal]").trigger({ type: "click" });
         }
         // Get a key for a new Post.
@@ -289,7 +289,7 @@ $(document).ready(function () {
         //window.location.reload();
     })
     $(document).on("click", ".deleteButton", function () {
-        const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
+        const result = confirm("Do you want to delete this object?");
         if (result) {
             // Nếu người dùng chọn OK, xóa đối tượng
             var delete_key = $(this).parent().parent().data("id");

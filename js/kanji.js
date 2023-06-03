@@ -157,15 +157,15 @@ $(document).ready(function () {
 
 
         if (kanji.length == 0 || mean.length == 0 || read.length == 0) {
-            alert("Không để trường nào trống"); return;
+            alert(`Please fill out all required fields.`); return;
         } else if (!regexKanji.test(kanji)) {
             alert("Input kanji in 'Kanji' and 'Read' field");
             return false;
         } else if (!regexMean.test(mean)) {
-            alert("Nghĩa chỉ nên có chữ cái tiếng việt");
+            alert("'Mean' field just contain vietnamese");
             return false;
         } else if (!regexRead.test(read)) {
-            alert("Cách đọc chỉ nên có chữ hiragana and katakana");
+            alert("'Read' field just contain hiragana and katakana");
             return false;
         }
         else {
@@ -174,7 +174,7 @@ $(document).ready(function () {
                 read: read
             })
                 .then(() => {
-                    alert("Thanh cong");
+                    alert("Add new kanji successfully !");
                     //location.reload();
                 })
                 .catch((error) => {
@@ -225,15 +225,15 @@ $(document).ready(function () {
             "read": reading
         };
         if (kanji.length == 0 || meaning.length == 0 || reading.length == 0) {
-            alert("Không để trường nào trống"); return;
+            alert(`Please fill out all required fields.`); return;
         } else if (!regexKanji.test(kanji)) {
-            alert("Hãy nhập hán tự!");
+            alert("Input kanji in 'Kanji' and 'Read' field");
             return false;
         } else if (!regexMean.test(meaning)) {
-            alert("Nghĩa chỉ nên có chữ cái tiếng việt");
+            alert("'Mean' field just contain vietnamese");
             return false;
         } else if (!regexRead.test(reading)) {
-            alert("Cách đọc chỉ nên có chữ hiragana and katakana");
+            alert("'Read' field just contain hiragana and katakana");
             return false;
         }
         else {
@@ -241,7 +241,7 @@ $(document).ready(function () {
             updates[`/learndekiru/${show_lessonList.value}/kanji/` + edit_key] = postData;
             //updates['/User-posts/' + edit_key] = postData;
             update(ref(db), updates);
-            alert("Thanh cong");
+            alert("Successfully !");
             $("[data-dismiss=modal]").trigger({ type: "click" });
         }
         // Get a key for a new Post.
@@ -253,7 +253,7 @@ $(document).ready(function () {
     })
 
     $(document).on("click", ".deleteButton", function () {
-        const result = confirm("Bạn có chắc chắn muốn xóa đối tượng này không?");
+        const result = confirm("Do you want to delete this object?");
         if (result) {
             // Nếu người dùng chọn OK, xóa đối tượng
             var delete_key = $(this).parent().parent().data("id");
