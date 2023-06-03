@@ -145,16 +145,22 @@ $(document).ready(function () {
 
     // });
     $("#addLessonModal .submit").on("click", () => {
-        var lesson = $("#addLessonModal .show_lesson1").val();
+        var lesson = $("#addLessonModal .show_lesson1").val().replace(/\s{2,}/g, ' ').trim();
         var kanji = $("#addLessonModal .show_kanji1").val();
         var newword = $("#addLessonModal .show_newword1").val();
         var nguphap = $("#addLessonModal .show_nguphap").val();
 
+        var lessonPattern = /^Bài\s*\d+$/;
+
+        
         if (lesson.length == 0) {
             alert("Please fill out all required fields.");
             return;
         }
-
+        if (!lessonPattern.test(lesson)) {
+            alert("Invalid lesson format. Please enter in the format 'Bài 9'.");
+            return;
+        }
         // Truy vấn cơ sở dữ liệu để kiểm tra lesson
         var refQuestion = ref(db, `questions/${lesson}`);
         var refLearnDekiru = ref(db, `learndekiru/${lesson}`);
